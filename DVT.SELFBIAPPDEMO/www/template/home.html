@@ -1,0 +1,27 @@
+ <ion-view>
+     <!--app header bar start-->
+  <ion-header-bar class="bar-stable">
+    <h1 class="title">Business Intelligence Demo</h1>
+  </ion-header-bar>
+  <!--app header bar end-->
+
+  <!--app content start-->
+  <ion-content  ng-controller="homeCtrl">  
+   <!--search start-->
+  <div class="list list-inset">
+    <label class="item item-input">
+      <i class="icon ion-search placeholder-icon"></i>
+      <input type="text" placeholder="Search" ng-keyup="search($event)" data-ng-model="query">
+    </label>
+  </div>
+  <!--search end--> 
+  <ion-list>
+    <ion-item ng-repeat="icon in icons track by $index"> 
+    {{icon.name}} 
+    </ion-item>
+  </ion-list>
+  </ion-content>
+  <!--app content end-->  
+</ion-view>
+ 
+    
