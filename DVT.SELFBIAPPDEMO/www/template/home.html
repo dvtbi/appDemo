@@ -1,27 +1,38 @@
  <ion-view>
      <!--app header bar start-->
   <ion-header-bar class="bar-stable">
-    <h1 class="title">Business Intelligence Demo</h1>
+    <h1 class="title">BI Demo</h1>
   </ion-header-bar>
   <!--app header bar end-->
-
   <!--app content start-->
-  <ion-content  ng-controller="homeCtrl">  
-   <!--search start-->
-  <div class="list list-inset">
-    <label class="item item-input">
-      <i class="icon ion-search placeholder-icon"></i>
-      <input type="text" placeholder="Search" ng-keyup="search($event)" data-ng-model="query">
-    </label>
-  </div>
-  <!--search end--> 
-  <ion-list>
-    <ion-item ng-repeat="icon in icons track by $index"> 
-    {{icon.name}} 
-    </ion-item>
-  </ion-list>
+  <ion-content  ng-controller="homeCtrl" id="divContent">  
+    <!--search start-->
+    <div class="list list-inset" >
+      <label class="item item-input" id="lblSearch">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="Search" ng-keyup="search($event)" ng-focus="searchFocus()" ng-model="IndicatorName">
+      </label>
+    </div>
+    <!--search end--> 
+
+    <ion-list>
+      <ion-item ng-repeat="icon in icons track by $index"> 
+      {{icon.name}} 
+      </ion-item>
+    </ion-list>
+
+
+    <ul class="list query-list" ng-show="IndicatorName!=undefined && IndicatorName!='' && IsSearchFocus" 
+                      style="width:{{queryListWidth}};
+                      min-height:{{queryListHeight}};
+                      left:{{queryListLeft}};
+                      top:{{queryListTop}}" >
+        <li class="item" ng-repeat="item in items | filter:IndicatorName | limitTo:5" ng-click="goProduce('{{item.IndicatorId}}','{{item.IndicatorName}}')" >
+          {{item.IndicatorName}}
+        </li> 
+    </ul> 
   </ion-content>
   <!--app content end-->  
-</ion-view>
+</ion-view> 
  
     
