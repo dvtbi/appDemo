@@ -1,25 +1,27 @@
 app.controller('searchCtrl',['$scope','$state','$stateParams','$http',function($scope,$state,$stateParams,$http){
 	$scope.IndicatorName=$stateParams.query?$stateParams.query:'';
-	$scope.items=(function(){
-		var storage=window.localStorage,indicator=[];
+	(function(){
+		var storage=window.localStorage;
 		if (window.localStorage) { 
 			if (!storage.indicator) {
 			    $http({
 		          method:'get',
 		          url:'http://10.2.17.32:65510/api/indicator/getindicators',
-		          timeout:10000,
+		          timeout:1000,
 		          params:{}
 		        })
 		        .success(function(data){
-		          indicator=data;
+		          $scope.items=data;
 		          storage.indicator=JSON.stringify(data);
+		        })
+		        .error(function(){
+		        	$scope.items=[];
 		        });
 		     }else{
-		     	indicator=JSON.parse(storage.indicator);
+		     	$scope.items=JSON.parse(storage.indicator);
 		     }
-		}  
-		return indicator;
-	})();
+		}   
+	})();  
 	$scope.goback=function(event){
 		$state.go('home',{query:$scope.IndicatorName});
 	};

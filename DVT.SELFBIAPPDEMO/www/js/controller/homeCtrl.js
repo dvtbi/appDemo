@@ -1,4 +1,5 @@
 app.controller('homeCtrl',['$scope','$state','$stateParams','$http','$timeout',function($scope,$state,$stateParams,$http,$timeout){
+	// 搜索框是否获取焦点（true），用于判断搜索box隐藏与显示
 	$scope.IsSearchFocus=false;
 	$scope.IndicatorName=$stateParams.query?$stateParams.query:'';
 	$scope.icons=[
@@ -10,18 +11,21 @@ app.controller('homeCtrl',['$scope','$state','$stateParams','$http','$timeout',f
 	];
 
 	(function(){
-		var storage=window.localStorage,indicator=[];
+		var storage=window.localStorage;
 		if (window.localStorage) { 
 			if (!storage.indicator) {
 			    $http({
 		          method:'get',
 		          url:'http://10.2.17.32:65510/api/indicator/getindicators',
-		          timeout:10000,
+		          timeout:1000,
 		          params:{}
 		        })
 		        .success(function(data){
 		          $scope.items=data;
 		          storage.indicator=JSON.stringify(data);
+		        })
+		        .error(function(){
+		        	$scope.items=[];
 		        });
 		     }else{
 		     	$scope.items=JSON.parse(storage.indicator);
@@ -49,6 +53,9 @@ app.controller('homeCtrl',['$scope','$state','$stateParams','$http','$timeout',f
 	$scope.searchFocus=function(){
 		$scope.IsSearchFocus=true;
 	};
+	$scope.searchBlur=function(){
+		$scope.IsSearchFocus=false;
+	}
 	angular.element(document).ready(function(){
 		var doc=document,
 			lblSearch=doc.getElementById('lblSearch'),
@@ -58,17 +65,5 @@ app.controller('homeCtrl',['$scope','$state','$stateParams','$http','$timeout',f
 		 $scope.queryListHeight=100+'px'; 
 		 $scope.queryListLeft=(divContent.clientWidth-lblSearch.clientWidth)/2 +'px';
 		 $scope.queryListTop=(lblSearch.offsetHeight+1)+'px'; 
-
-		 doc.addEventListener('click',function(event){
-			if (event.target.tagName!='INPUT') {
-				$scope.$apply(function(){
-					$scope.IsSearchFocus=false;
-				});  
-			}else if ($scope.IndicatorName !==undefined && $scope.IndicatorName!='') {
-				$scope.$apply(function(){
-					$scope.IsSearchFocus=true;
-				});  
-			}
-		 })
 	});
 }]); 

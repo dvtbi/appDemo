@@ -1,4 +1,4 @@
-app.controller('produceCtrl', function ($scope, ionicDatePicker,$stateParams) {
+app.controller('produceCtrl', function ($scope, ionicDatePicker,$state,$stateParams) {
     // 根据Date格式化字符串
     var dateFormat=function(o){
       var f=function(i,isDay){
@@ -44,9 +44,15 @@ app.controller('produceCtrl', function ($scope, ionicDatePicker,$stateParams) {
       ionicDatePicker.openDatePicker(ipObj1);
     };
 
-    $scope.query=function(){
- 
-    }
-
     $scope.indicatorName=$stateParams.name;
+    $scope.organizations=[{value:0,text:'大连'},{value:1,text:'哈尔滨'},{value:2,text:'北京'}];
+    $scope.selectedObject=$scope.organizations[2]; 
+    $scope.organizationChange=function(data){ 
+        $scope.organization=data.text; 
+    };
+    $scope.query=function(){ 
+      $state.go('quota',{name:$scope.indicatorName,
+        date:$scope.queryDate,
+        organization:$scope.organization || $scope.selectedObject.text});
+    }
 });

@@ -1,0 +1,19 @@
+app.controller('quotaCtrl',function($scope,$http,$state,$stateParams){
+	$scope.indicatorName=$stateParams.name;
+	$scope.queryDate=$stateParams.date;
+	$scope.organization=$stateParams.organization;
+	/*
+	 $http({
+		method:'get',
+		url:'',
+		params:{},
+		timeout:1000
+	})
+	.success(function(data){
+		//
+	})
+	.error(function(){
+		//
+	});
+	*/
+});

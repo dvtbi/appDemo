@@ -1,1 +1,32 @@
 /* Empty. Add your own CSS if you like */
+/* search box's class */
+.query-list{
+  z-index: 999;
+  position: absolute;
+  top: 50px;
+  left: 11px;
+  width: 300px;
+}
+.query-list li {
+  padding-top:5px;
+  padding-bottom:5px; 
+  border-left-color:#ddd;
+  border-right-color:#ddd;
+  opacity:0.6;
+}
+.query-list li:last-child{ 
+  border-bottom-color:#ddd;
+}
+.query-list li:first-child{
+   border-top-color:#ddd;
+} 
+
+/* home page icon name's font-size */
+.hi-icon {
+  font-size: 100%;
+}
+
+/* home page's class */
+ .section{ 
+	padding:5 5 5 5;
+}

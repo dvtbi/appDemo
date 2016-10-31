@@ -1,6 +1,8 @@
 <ion-view cache-view="false" ng-controller="produceCtrl">
 	<ion-header-bar class="bar-stable">
-    	<h1 class="title">{{indicatorName}}</h1>
+	 	<a class="button" href="#/home"><i class="icon ion-reply"></i></a> 
+    	<h1 class="title" style="text-align:center">{{indicatorName}}</h1>
+    	<a class="button" href="#/home"><i class=" icon ion-home"></i></a>
     </ion-header-bar>
 	<ion-content > 
 		 	<div class="list list-inset">
@@ -14,10 +16,7 @@
 				    <div class="input-label">
 				      请选择组织
 				    </div>
-				    <select>
-				      <option>大连</option>
-				      <option selected>北京</option>
-				      <option>黑龙江</option>
+				    <select ng-options="item.text for item in organizations" ng-model="selectedObject" ng-change="organizationChange(selectedObject)">
 				    </select>
 				</label>
 			</div>

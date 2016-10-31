@@ -28,7 +28,12 @@ app.config(function($stateProvider,$urlRouterProvider){
     templateUrl:'template/produce.html',
     controller:'produceCtrl'
   })
-  
+  .state('quota',{
+    cache:false,
+    url:'/quota:name:date:organization',
+    templateUrl:'template/quota.html',
+    controller:'quotaCtrl'
+  })
 })
 
 .run(function($ionicPlatform) {
