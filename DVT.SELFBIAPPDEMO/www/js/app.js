@@ -6,34 +6,36 @@
 var app=angular.module('selfbiappdemo', ['ionic','ionic-datepicker']);
  
 // route config
-app.config(function($stateProvider,$urlRouterProvider){
-  $urlRouterProvider.otherwise('/home');
+app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
+  $urlRouterProvider.otherwise('/home/');
 
   $stateProvider
   .state('home',{
     cache:false,
-    url:'/home:query',
+    url:'/home/:query',
     templateUrl:'template/home.html',
     controller:'homeCtrl'
   })
   .state('search',{
     cache:false,
-    url:'/search:query',
+    url:'/search/:query',
     templateUrl:'template/search.html',
     controller:'searchCtrl'
   })
   .state('produce',{
     cache:false,
-    url:'/produce:id:name',
+    url:'/produce/:id/:name/:start/:end/:value/:text', 
     templateUrl:'template/produce.html',
     controller:'produceCtrl'
   })
   .state('quota',{
     cache:false,
-    url:'/quota:name:date:organization',
+    url:'/quota/:id/:name/:start/:end/:orgValue/:orgText',
     templateUrl:'template/quota.html',
     controller:'quotaCtrl'
   })
+
+  $ionicConfigProvider.views.maxCache(0);
 })
 
 .run(function($ionicPlatform) {
@@ -54,6 +56,7 @@ app.config(function($stateProvider,$urlRouterProvider){
   });
 })
 
+// DatePicker
 .config(function (ionicDatePickerProvider) {
     var datePickerObj = {
       inputDate: new Date(),

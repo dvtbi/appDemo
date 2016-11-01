@@ -1,6 +1,6 @@
 <ion-view cache-view="false" ng-controller="produceCtrl">
 	<ion-header-bar class="bar-stable">
-	 	<a class="button" href="#/home"><i class="icon ion-reply"></i></a> 
+	 	<a class="button" href="#/home/{{indicatorName}}"><i class="icon ion-reply"></i></a> 
     	<h1 class="title" style="text-align:center">{{indicatorName}}</h1>
     	<a class="button" href="#/home"><i class=" icon ion-home"></i></a>
     </ion-header-bar>
@@ -8,15 +8,20 @@
 		 	<div class="list list-inset">
 		 		<br>
 				<label class="item item-input">
-				    <span class="input-label">请选择日期</span>
-				    <input type="text" placeholder="Select The Date" ng-click="openDatePicker($event)" ng-model="queryDate" >
+				    <span class="input-label">起始</span>
+				    <input type="text" placeholder="Select The Start Date" ng-click="openDatePickerStart($event)" ng-model="queryDateStart" >
+				</label> 
+				<br>
+				<label class="item item-input">
+				    <span class="input-label">结束</span>
+				    <input type="text" placeholder="Select The End Date" ng-click="openDatePickerEnd($event)" ng-model="queryDateEnd" >
 				</label> 
 				<br>
 				<label class="item item-input item-select">
 				    <div class="input-label">
-				      请选择组织
+				      组织
 				    </div>
-				    <select ng-options="item.text for item in organizations" ng-model="selectedObject" ng-change="organizationChange(selectedObject)">
+				    <select ng-options="item.text for item in organizations" ng-model="selectedObject"  ng-change="organizationChange(selectedObject)">
 				    </select>
 				</label>
 			</div>

@@ -1,26 +1,39 @@
-<ion-view cache-view="false" ng-controller="produceCtrl">
+<ion-view cache-view="false" ng-controller="produceCtrl"> 
+<style>
+	.item b:first-child{
+		display:inline-block;
+		padding-left:10px;
+		width:100px;
+		font-weight:500;
+	}
+	.item b:last-child{
+		display:inline-block; 
+		font-weight:400;
+		color:gray; 
+	}
+</style>
 	<ion-header-bar class="bar-stable">
-	 	<a class="button" href="#/produce"><i class="icon ion-reply"></i></a> 
+	 	<a class="button" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{end}}/{{orgValue}}/{{orgText}}"><i class="icon ion-reply"></i></a> 
     	<h1 class="title" style="text-align:center">{{indicatorName}}</h1>
     	<a class="button" href="#/home"><i class=" icon ion-home"></i></a>
     </ion-header-bar>
 	<ion-content > 
 		 	<div class="list card">
-			  <div class="item item-avatar">
-			   <!-- <img src="mcfly.jpg">
-			    <h2>日期</h2>-->
-			    <p>{{queryDate}}</p>
+			  <div class="item" >
+			   <!-- <img src="mcfly.jpg">-->
+			   <b  >起始</b> <b>{{start}}</b> 
 			  </div> 
-			  <div class="item item-avatar">
+			  <div class="item">
+			  <b >结束</b> <b >{{end}}</b>  
+			  </div> 
+			  <div class="item">
+			   <b>组织</b> <b >{{orgText}}</b>   
+			  </div> 
+			   <div class="item">
 			   <!-- <img src="mcfly.jpg">
 			    <h2>组织</h2>-->
-			    <p>{{organization}}</p>
-			  </div> 
-			   <div class="item item-avatar">
-			   <!-- <img src="mcfly.jpg">
-			    <h2>组织</h2>-->
-			    <p>{{organization}}</p>
-			  </div> 
+			     <b >指标数</b> <b>{{indicatorNumber}}</b>  
+			  </div>
 			  <!-- <div class="item item-body">
 			    <img class="full-image" src="delorean.jpg">
 			    <p>
@@ -34,6 +47,6 @@
 			    </p>
 			  </div>-->
 			</div> 
-			<a class="button button-full button-positive" href="#/produce" >返回</a>
+			<a class="button button-full button-positive" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{end}}/{{orgValue}}/{{orgText}}" >返回</a>
 	 </ion-content>
 </ion-view>

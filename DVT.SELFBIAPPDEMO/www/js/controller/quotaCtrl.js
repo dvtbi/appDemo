@@ -1,19 +1,27 @@
 app.controller('quotaCtrl',function($scope,$http,$state,$stateParams){
 	$scope.indicatorName=$stateParams.name;
-	$scope.queryDate=$stateParams.date;
-	$scope.organization=$stateParams.organization;
-	/*
-	 $http({
+	$scope.indicatorId=$stateParams.id;
+	$scope.start=$stateParams.start;
+	$scope.end=$stateParams.end;
+	$scope.orgValue=$stateParams.orgValue;
+	$scope.orgText=$stateParams.orgText;
+	$http({
 		method:'get',
-		url:'',
-		params:{},
+		url:'http://10.2.17.32:65510/api/indicator/getdata',
+		params:{
+			indicatorId:$scope.indicatorId,
+			organizationId:$scope.orgValue,
+			begintime:$scope.start,
+			endtime:$scope.end
+		},
 		timeout:1000
 	})
 	.success(function(data){
 		//
+		//console.log(data);
+		$scope.indicatorNumber=data;
 	})
 	.error(function(){
 		//
 	});
-	*/
 });
