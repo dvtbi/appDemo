@@ -1,12 +1,9 @@
 app.controller('tendencyCtrl', ['$scope', '$state', '$stateParams', function($scope, $state, $stateParams) {
-    $scope.IndicatorName = "分析趋势图";
-
-
-
+    $scope.name = "test";
+    // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
 
     // 指定图表的配置项和数据
-
     option = {
         title: {
             text: '堆叠区域图'
@@ -15,7 +12,7 @@ app.controller('tendencyCtrl', ['$scope', '$state', '$stateParams', function($sc
             trigger: 'axis'
         },
         legend: {
-            data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+            data: []
         },
         toolbox: {
             feature: {
@@ -75,16 +72,47 @@ app.controller('tendencyCtrl', ['$scope', '$state', '$stateParams', function($sc
         }]
     };
 
+
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 
-    $scope.goback = function(event) {
-        $state.go('home', { query: $scope.IndicatorName });
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    option2 = {
+        title: {
+            text: '发电量',
+            subtext: '纯属虚构',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+        },
+        series: [{
+            name: '访问来源',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: [
+                { value: 335, name: '直接访问' },
+                { value: 310, name: '邮件营销' },
+                { value: 234, name: '联盟广告' },
+                { value: 135, name: '视频广告' },
+                { value: 1548, name: '搜索引擎' }
+            ],
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+        }]
     };
-    $scope.goProduce = function(i, n) {
-            $state.go('home', { query: $scope.IndicatorName });
-        }
-        // 基于准备好的dom，初始化echarts实例
 
-
+    myChart2.setOption(option2);
 }])
