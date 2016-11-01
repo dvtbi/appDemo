@@ -34,6 +34,12 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
     templateUrl:'template/quota.html',
     controller:'quotaCtrl'
   })
+   .state('tendency',{
+    cache:false,
+    url:'/tendency/:query',
+    templateUrl:'template/tendency.html',
+    controller:'tendencyCtrl'
+  })
 
   $ionicConfigProvider.views.maxCache(0);
 })
