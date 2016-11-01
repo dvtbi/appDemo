@@ -3,13 +3,6 @@ app.controller('homeCtrl',['$scope','$state','$stateParams','$http','$timeout','
 	// 搜索框是否获取焦点（true），用于判断搜索box隐藏与显示
 	$scope.IsSearchFocus=false;
 	$scope.IndicatorName=$stateParams.query?$stateParams.query:'';
-	$scope.icons=[
-		{name:"领导驾驶舱",src:"img/ionic.png"},
-		{name:"安全生产",src:"img/ionic.png"},
-		{name:"市场营销",src:"img/ionic.png"},
-		{name:"燃料经营",src:"img/ionic.png"},
-		{name:"财务经营",src:"img/ionic.png"}
-	];
 
 	(function(){
 		var storage=window.localStorage;
@@ -60,15 +53,16 @@ app.controller('homeCtrl',['$scope','$state','$stateParams','$http','$timeout','
 	$scope.goProduce=function(i,n){ 
 		console.log(i);
 		if (i<=0) {
-			$ionicPopup.alert({ 
+			/*$ionicPopup.alert({ 
 			  title: '友情提示', // String. 弹窗的标题。
 			  subTitle: '功能暂未开放，请选择其他关键词', // String (可选)。弹窗的子标题。
 			  template: '', // String (可选)。放在弹窗body内的html模板。
 			  templateUrl: '', // String (可选)。 放在弹窗body内的html模板的URL。
 			  okText: '确定', // String (默认: 'OK')。OK按钮的文字。
 			  okType: 'button-positive', // String (默认: 'button-positive')。OK按钮的类型。
-			});
+			});*/
 			//跳转到趋势图页面
+			$state.go('tendency',{query:n});
 		}else{
 			$state.go('produce',{id:i,name:n});
 		}

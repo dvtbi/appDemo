@@ -22,7 +22,7 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
     templateUrl:'template/search.html',
     controller:'searchCtrl'
   })
-  .state('produce',{
+   .state('produce',{
     cache:false,
     url:'/produce/:id/:name/:start/:value/:text', 
     templateUrl:'template/produce.html',

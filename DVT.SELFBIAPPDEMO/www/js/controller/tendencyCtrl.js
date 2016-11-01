@@ -8,7 +8,7 @@ app.controller('tendencyCtrl', ['$scope', '$state', '$stateParams', function($sc
          $state.go('home',{query:$scope.IndicatorName});
     }
 
-    $scope.IndicatorName="趋势分析图";
+    $scope.IndicatorName=$stateParams.query || "趋势分析图";
       // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
     // 指定图表的配置项和数据
