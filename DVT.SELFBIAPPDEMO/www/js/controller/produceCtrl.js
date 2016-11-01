@@ -1,4 +1,4 @@
-app.controller('produceCtrl', function ($scope, ionicDatePicker,$state,$stateParams) {
+app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$stateParams) {
     // 根据Date格式化字符串
     var dateFormat=function(o){
       var f=function(i,isDay){
@@ -42,50 +42,36 @@ app.controller('produceCtrl', function ($scope, ionicDatePicker,$state,$statePar
     $scope.openDatePickerStart = function(e){
       e.stopPropagation();
       ionicDatePicker.openDatePicker(ipObj1);
-    };
+    }; 
 
-    var ipObj2 = {
-      callback: function (val) {  //Mandatory
-        $scope.queryDateEnd=dateFormat(new Date(val)); 
-        //console.log('Return value from the datepicker popup is : ' + val, new Date(val));
-      },
-      disabledDates: [            //Optional
-        //new Date(2016, 2, 16),
-        //new Date(2015, 3, 16),
-        //new Date(2015, 4, 16),
-        //new Date(2015, 5, 16),
-        //new Date('Wednesday, August 12, 2015'),
-        //new Date("08-16-2016"),
-        //new Date(1439676000000)
-      ],
-      from: new Date(2012, 1, 1), //Optional
-      to: new Date(2016, 10, 30), //Optional
-      inputDate: new Date(),      //Optional
-      mondayFirst: true,          //Optional
-      //disableWeekdays: [0],       //Optional
-      closeOnSelect: false,       //Optional
-      templateType: 'popup'       //Optional
-    };
-    // 调用datepicker
-    $scope.openDatePickerEnd = function(e){
-      e.stopPropagation();
-      ionicDatePicker.openDatePicker(ipObj2);
-    };
+    $http({
+      method:'get',
+      url:'http://10.2.17.32:65510/api/indicator/getOrganization',
+      params:{},
+      timeout:5000
+    })
+    .success(function(data){
+      $scope.organizations=data;
+      $scope.selectedObject=$scope.organizations[0]; 
+      if ($stateParams.value && $stateParams.text) {
+        for (var i = 0,len=$scope.organizations.length; i < len; i++) {
+          if ($stateParams.value==$scope.organizations[i].OrganizationCode) {
+             $scope.selectedObject =$scope.organizations[i];
+             break;
+          }
+        } 
+      }
+    })
+    .error(function(){
+      //
+    });
 
-    $scope.organizations=[{value:"0",text:"大连"},{value:"1",text:"哈尔滨"},{value:"2",text:"北京"}];
+   // $scope.organizations=[{value:"0",text:"大连"},{value:"1",text:"哈尔滨"},{value:"2",text:"北京"}];
     $scope.indicatorName=$stateParams.name;
     $scope.indicatorId=$stateParams.id;
     $scope.queryDateStart=$stateParams.start ||dateFormat(new Date());
-    $scope.queryDateEnd=$stateParams.end ||dateFormat(new Date());
-    $scope.selectedObject=$scope.organizations[0]; 
-    if ($stateParams.value && $stateParams.text) {
-      for (var i = 0,len=$scope.organizations.length; i < len; i++) {
-        if ($stateParams.value==$scope.organizations[i].value) {
-           $scope.selectedObject =$scope.organizations[i];
-           break;
-        }
-      } 
-    }
+    //$scope.queryDateEnd=$stateParams.end ||dateFormat(new Date());
+
     //$scope.selectedObject=$scope.organizations[2];   
     $scope.organizationChange=function(data){ 
         $scope.selectedObject=data; 
@@ -95,8 +81,8 @@ app.controller('produceCtrl', function ($scope, ionicDatePicker,$state,$statePar
         id:$scope.indicatorId,
         name:$scope.indicatorName,
         start:$scope.queryDateStart,
-        end:$scope.queryDateEnd,
-        orgValue:$scope.selectedObject.value,
-        orgText:$scope.selectedObject.text
+        //end:$scope.queryDateEnd,
+        orgValue:$scope.selectedObject.OrganizationCode,
+        orgText:$scope.selectedObject.OrganizationName
       })};
 });

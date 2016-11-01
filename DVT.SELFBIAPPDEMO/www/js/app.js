@@ -24,13 +24,13 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
   })
   .state('produce',{
     cache:false,
-    url:'/produce/:id/:name/:start/:end/:value/:text', 
+    url:'/produce/:id/:name/:start/:value/:text', 
     templateUrl:'template/produce.html',
     controller:'produceCtrl'
   })
   .state('quota',{
     cache:false,
-    url:'/quota/:id/:name/:start/:end/:orgValue/:orgText',
+    url:'/quota/:id/:name/:start/:orgValue/:orgText',
     templateUrl:'template/quota.html',
     controller:'quotaCtrl'
   })

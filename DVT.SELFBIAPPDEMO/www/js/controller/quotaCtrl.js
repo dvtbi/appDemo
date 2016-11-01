@@ -2,26 +2,40 @@ app.controller('quotaCtrl',function($scope,$http,$state,$stateParams){
 	$scope.indicatorName=$stateParams.name;
 	$scope.indicatorId=$stateParams.id;
 	$scope.start=$stateParams.start;
-	$scope.end=$stateParams.end;
+	//$scope.end=$stateParams.end;
 	$scope.orgValue=$stateParams.orgValue;
 	$scope.orgText=$stateParams.orgText;
-	$http({
-		method:'get',
-		url:'http://10.2.17.32:65510/api/indicator/getdata',
-		params:{
-			indicatorId:$scope.indicatorId,
-			organizationId:$scope.orgValue,
-			begintime:$scope.start,
-			endtime:$scope.end
+	$scope.quotaNumber={
+		requestCount:0,
+		options:{
+			method:'get',
+			url:'http://10.2.17.32:65510/api/indicator/getdata',
+			params:{
+				indicatorId:$scope.indicatorId,
+				organizationId:$scope.orgValue,
+				begintime:$scope.start,
+				endtime:$scope.start
+			},
+			timeout:5000
 		},
-		timeout:1000
-	})
-	.success(function(data){
-		//
-		//console.log(data);
-		$scope.indicatorNumber=data;
-	})
-	.error(function(){
-		//
-	});
+		get:function(){
+			$http($scope.quotaNumber.options)
+			.success(function(data){
+				//
+				//console.log(data);
+				$scope.indicatorNumber=data;
+			})
+			.error(function(res){
+				//console.log(res);
+				if ($scope.quotaNumber.requestCount==0) {
+					$scope.quotaNumber.requestCount++;
+					var id=$scope.quotaNumber.options.params.organizationId;
+					$scope.quotaNumber.options.params.organizationId=id.replace(/[a-z]*/gi,'');
+					$scope.quotaNumber.get();
+				} 
+			});
+		}
+	}
+
+	$scope.quotaNumber.get();
 });

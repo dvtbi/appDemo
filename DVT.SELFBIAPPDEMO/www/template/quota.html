@@ -3,7 +3,7 @@
 	.item b:first-child{
 		display:inline-block;
 		padding-left:10px;
-		width:100px;
+		width:180px;
 		font-weight:500;
 	}
 	.item b:last-child{
@@ -13,7 +13,7 @@
 	}
 </style>
 	<ion-header-bar class="bar-stable">
-	 	<a class="button" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{end}}/{{orgValue}}/{{orgText}}"><i class="icon ion-reply"></i></a> 
+	 	<a class="button" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{orgValue}}/{{orgText}}"><i class="icon ion-reply"></i></a> 
     	<h1 class="title" style="text-align:center">{{indicatorName}}</h1>
     	<a class="button" href="#/home"><i class=" icon ion-home"></i></a>
     </ion-header-bar>
@@ -21,18 +21,15 @@
 		 	<div class="list card">
 			  <div class="item" >
 			   <!-- <img src="mcfly.jpg">-->
-			   <b  >起始</b> <b>{{start}}</b> 
-			  </div> 
+			   <b  >日期</b> <b>{{start}}</b> 
+			  </div>  
 			  <div class="item">
-			  <b >结束</b> <b >{{end}}</b>  
-			  </div> 
-			  <div class="item">
-			   <b>组织</b> <b >{{orgText}}</b>   
+			   <b>电厂</b> <b >{{orgText}}</b>   
 			  </div> 
 			   <div class="item">
 			   <!-- <img src="mcfly.jpg">
 			    <h2>组织</h2>-->
-			     <b >指标数</b> <b>{{indicatorNumber}}</b>  
+			     <b >{{indicatorName}}</b> <b>{{indicatorNumber}}</b>  
 			  </div>
 			  <!-- <div class="item item-body">
 			    <img class="full-image" src="delorean.jpg">
@@ -47,6 +44,6 @@
 			    </p>
 			  </div>-->
 			</div> 
-			<a class="button button-full button-positive" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{end}}/{{orgValue}}/{{orgText}}" >返回</a>
+			<a class="button button-full button-positive" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{orgValue}}/{{orgText}}" >返回</a>
 	 </ion-content>
 </ion-view>
