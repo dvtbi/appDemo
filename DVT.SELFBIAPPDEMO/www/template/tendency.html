@@ -1,12 +1,14 @@
-<ion-view cache-view="false" ng-controller="Ctrl">
-    <ion-header-bar class="bar-stable">
-        <a class="button" href="#/home/{{indicatorName}}"><i class="icon ion-reply"></i></a>
-        <h1 class="title" style="text-align:center">{{indicatorName}}</h1>
-        <a class="button" href="#/home"><i class=" icon ion-home"></i></a>
+<ion-view cache-view="false" ng-controller="tendencyCtrl">
+	<ion-header-bar class="bar-stable">
+	 	<a class="button" href="#/home/{{IndicatorName}}"><i class="icon ion-reply"></i></a> 
+    	<h1 class="title" style="text-align:center">{{IndicatorName}}</h1>
+    	<a class="button" href="#/home"><i class=" icon ion-home"></i></a>
     </ion-header-bar>
-    <ion-content>
-        <div id="main" style="width: 400px;height:350px;"></div>
-       
-    </ion-content>
 
+    <ion-content > 
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 400px;height:600px;"></div>
+
+    
+     </ion-content>
 </ion-view>
