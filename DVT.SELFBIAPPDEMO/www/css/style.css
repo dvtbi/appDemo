@@ -23,10 +23,57 @@
 
 /* home page icon name's font-size */
 .hi-icon {
-  font-size: 100%;
+  font-size: 70%;
 }
 
 /* home page's class */
  .section{ 
 	padding:5 5 5 5;
+}
+
+/* home icon's class*/
+@media screen and (max-width:320px){
+  .hi-icon{
+    margin:15px !important;
+
+  }
+   .hi-icon:before{
+    line-height:65px  !important;
+    font-size:30px  !important;
+  }
+}
+@media screen and (min-width:321px) and (max-width: 375px){
+  .hi-icon{
+     margin:15px !important;
+     width:70px !important;
+     height:70px !important;  
+  }
+  .hi-icon:before{
+    line-height:75px  !important;
+    font-size:30px  !important;
+  }
+}
+@media screen and (min-width:376px) and (max-width: 736px){
+  .hi-icon{
+     margin:15px !important;
+     width:80px !important;
+     height:80px !important;  
+     font-size:90% !important;
+  }
+  .hi-icon:before{
+    line-height:90px  !important;
+    font-size:30px  !important;
+  }
+}
+@media screen and (min-width:769px) and (max-width: 1024px){
+  .hi-icon{
+     margin:15px !important;
+     width:90px !important;
+     height:90px !important;  
+     font-size:100% !important;
+  }
+  .hi-icon:before{
+    line-height:100px  !important;
+    font-size:50px  !important;
+  }
 }

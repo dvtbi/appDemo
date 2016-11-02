@@ -20,7 +20,6 @@ app.controller('homeCtrl',['$scope','$state','$stateParams','$http','$timeout','
 		        		data.push({IndicatorId:-1,IndicatorName:'发电量走势图'});
 		        		data.push({IndicatorId:-2,IndicatorName:'发电量曲线图'});
 		        		data.push({IndicatorId:-3,IndicatorName:'发电量折线图'});
-		        		data.push({IndicatorId:-4,IndicatorName:'发电量柱状图'});
 		        		$scope.items=data;
 		          		storage.indicator=JSON.stringify(data);
 		        	}else{

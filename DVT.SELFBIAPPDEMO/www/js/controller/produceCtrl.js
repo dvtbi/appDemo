@@ -1,4 +1,4 @@
-app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$stateParams) {
+app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$stateParams,$ionicViewSwitcher) {
     // 根据Date格式化字符串
     var dateFormat=function(o){
       var f=function(i,isDay){
@@ -77,6 +77,7 @@ app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$st
         $scope.selectedObject=data; 
     };
     $scope.query=function(){ 
+      $ionicViewSwitcher.nextDirection('forward');
       $state.go('quota',{
         id:$scope.indicatorId,
         name:$scope.indicatorName,

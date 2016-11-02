@@ -12,8 +12,8 @@
 		color:gray; 
 	}
 </style>
-	<ion-header-bar class="bar-stable">
-	 	<a class="button" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{orgValue}}/{{orgText}}"><i class="icon ion-reply"></i></a> 
+	<ion-header-bar class="bar-stable" style="background-color:#e6e6e6">
+	 	<a class="button" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{orgValue}}/{{orgText}}" nav-direction="back"><i class="icon ion-reply"></i></a> 
     	<h1 class="title" style="text-align:center">{{indicatorName}}</h1>
     	<a class="button" href="#/home"><i class=" icon ion-home"></i></a>
     </ion-header-bar>
@@ -44,6 +44,6 @@
 			    </p>
 			  </div>-->
 			</div> 
-			<a class="button button-full button-positive" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{orgValue}}/{{orgText}}" >返回</a>
+			<a class="button button-full button-positive" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{orgValue}}/{{orgText}}"  nav-direction="back" >返回</a>
 	 </ion-content>
 </ion-view>
