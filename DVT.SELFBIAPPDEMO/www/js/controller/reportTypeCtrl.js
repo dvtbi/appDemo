@@ -1,35 +1,36 @@
 app.controller('reportTypeCtrl',function($scope,$state,$stateParams,$http,$window,$timeout){
 	$scope.indicatorName=$stateParams.query?$stateParams.query:'';
-	$scope.patternName=$stateParams.patternName?$stateParams.patternName:'';
+	$scope.patternName=$stateParams.patternName?$stateParams.patternName:''; 
 	$scope.goBack=function(){
 		$window.history.go(-1);
 	};
 	$scope.doRefresh=function(){
-		$timeout(function(){
+		/*$timeout(function(){
 			 // Stop the ion-refresher from spinning
        		$scope.$broadcast('scroll.refreshComplete');
-		},2000);
-	};
-	(function(){
-		var storage=window.localStorage;
-		if (window.localStorage) { 
-			if (!storage.indicator) {
-			    $http({
-		          method:'get',
-		          url:'http://10.2.17.32:65510/api/indicator/getindicators',
-		          timeout:1000,
-		          params:{}
-		        })
-		        .success(function(data){
-		          $scope.items=data;
-		          storage.indicator=JSON.stringify(data);
-		        })
-		        .error(function(){
-		        	$scope.items=[];
-		        });
-		     }else{
-		     	$scope.items=JSON.parse(storage.indicator);
-		     }
-		}   
-	});
+		},2000);*/
+		requestHttp(1);
+	}; 
+	var requestHttp=function(refresh){
+	 	$http({
+	      method:'get',
+	      url:'http://dwt2.hpi.com.cn/selfbiapi/api/indicator/GetReportCateGoryList',
+	      timeout:5000,
+	      params:{
+	      	reportName:$scope.patternName
+	      }
+	    })
+	    .success(function(data){  
+	      $scope.items=data; 
+	    })
+	    .error(function(){
+	    	$scope.items=[];
+	    })
+	    .finally(function(){ 
+	    	if (refresh) {
+	    		$scope.$broadcast('scroll.refreshComplete');
+	    	} 
+	    });  
+	}; 
+	requestHttp();
 });

@@ -1,33 +1,35 @@
 <ion-view cache-view="false"  >
 	<ion-header-bar class="bar-stable"  style="background-color:#e6e6e6">
 	 	<button class="button"  ng-click="goBack()" nav-direction="back"><i class="icon ion-reply"></i></button> 
-    	<h1 class="title" style="text-align:center">測試</h1>
+    	<h1 class="title" style="text-align:center">指标查询</h1>
     	<a class="button" href="#/home"><i class="icon ion-home"></i></a>
     </ion-header-bar>
 	<ion-content > 
 		 	<div class="list list-inset">
-		 		<br>
-				<label class="item item-input item-select" id="linkQueryMonth"  >
+		 		
+				<label ng-show="isMonth" class="item item-input item-select" id="linkQueryMonth"  >
+					<br>
 				    <span class="input-label">月份</span>
-				    <a class="city-bx_r"> {{queryMonth}}</a>
+				    <a class="city-bx_r"> {{queryDate}}</a>
 				   <!-- <input type="text" placeholder="Select The Start Date" ng-click="openDatePickerMonth($event)" ng-model="queryMonth" ng-readonly >-->
 				</label> 
-		 		<br>
-				<label class="item item-input item-select" id="linkQueryDate" >
+		 		
+				<label ng-show="isDay" class="item item-input item-select" id="linkQueryDate" >
+					<br>
 				     <span class="input-label">日期</span>
 				      <a class="city-bx_r"  data-default="no"> {{queryDate}}</a>
 				    <!--  <input type="text" placeholder="Select The Start Date" ng-click="openDatePickerDay($event)" ng-model="queryDay" >-->
 				</label>  
-				<br>
-				<label class="item item-input item-select" id="linkQueryPowerplant">
+				
+				<!--<label class="item item-input item-select" id="linkQueryPowerplant">
+					<br>
 				    <div class="input-label">
 				      电厂
 				    </div>
 				     <a  class="city-bx_r"> {{queryPowerplant}}</a>
-				    <!--<select ng-options="item.OrganizationName for item in organizations" ng-model="selectedObject"  ng-change="organizationChange(selectedObject)">
-				    </select>-->
-				</label>
-				<br>
+				    <select ng-options="item.OrganizationName for item in organizations" ng-model="selectedObject"  ng-change="organizationChange(selectedObject)">
+				    </select>
+				</label> -->
 				<label class="item item-input item-select" id="linkQueryOrganization" >
 				    <div class="input-label">
 				      分公司
@@ -39,7 +41,7 @@
 				
 			</div>
 
-	 		<button class="button button-full button-positive" ng-click="query()">查询</button>
+	 		<button class="button button-full button-positive" ng-disabled="isDisabled" ng-click="query()">查询</button>
 	 </ion-content>
 	  <ion-footer-bar  >
 	  	<span style="text-align:center;width:100%">京备：———————</span> 

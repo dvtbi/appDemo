@@ -2,7 +2,7 @@
      <!--app header bar start-->
 	<ion-header-bar class="bar-stable"  style="background-color:#e6e6e6">
 	 	<button class="button" ng-click="goBack()" nav-direction="back"><i class="icon ion-reply"></i></button> 
-    	<h1 class="title" style="text-align:center">{{name}}</h1>
+    	<h1 class="title" style="text-align:center"></h1>
     	<a class="button" href="#/home"><i class=" icon ion-home"></i></a>
     </ion-header-bar>
 	  <!--app header bar end-->
@@ -13,21 +13,11 @@
         on-refresh="doRefresh()">
       </ion-refresher>
 	  	<div class="list">  
-		    <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-        标煤单价完成情况（分公司）1月份
-      </a>  
-      <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-        标煤单价完成情况（分公司）2月份
-      </a>  
-      <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-        标煤单价完成情况（分公司）3月份
-      </a>  
-      <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-        标煤单价完成情况（分公司）4月份
-      </a>  
-      <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-        标煤单价完成情况（分公司）5月份
-      </a>  
+      <div class="item item-divider" style="text-align:center">
+       {{name}}
+      </div>
+		    <a ng-repeat="item in items" class="item item-arrow-right" href="{{item.reportUrl}}" nav-direction="forward"> {{item.reportName}}
+      </a>   
 		</div> 
   	  </ion-content>
   <!--app content end-->  

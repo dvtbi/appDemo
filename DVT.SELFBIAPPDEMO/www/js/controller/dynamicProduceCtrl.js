@@ -29,25 +29,39 @@ app.controller('dynamicProduceCtrl',
     // 获取Url参数
     $scope.indicatorId=$stateParams.id;
     $scope.indicatorName=$stateParams.name;
-    $scope.indicatorUnit=$stateParams.Unit;
+    $scope.indicatorUnit=$stateParams.unit;
+    $scope.isDay=false;
+    $scope.isMonth=false;
+    $scope.isDisabled=true;
 
-    // 获取纬度信息
+    // 获取动态纬度信息
     $http({
       method:'get',
       url:'http://dwt2.hpi.com.cn/selfbiapi/api/indicator/GetDimensionByIndicatorId',
       timeout:5000,
       params:{
         indicatorId:$scope.indicatorId
+      },
+      async:false
+    })
+    .success(function(rs){
+      if (rs && rs.length && rs.length>1) {
+        $scope.isDay=(/fday/i).test(rs[1].DimID);
+        $scope.isMonth=(/fmonth/i).test(rs[1].DimID);
+        $scope.dateType=rs[1].DimID;
       }
     })
-    .then(function(rs){
-      
-    })
-    .catch(function(rs){
-
+    .error(function(rs){
+      $scope.isDay=false;
+      $scope.isMonth=false;
     })
     .finally(function(){
-
+      if ($scope.isDay) {
+        $scope.queryDate=dateFormat(new Date(),'yyyy-MM-dd');
+      }
+      if ($scope.isMonth) {
+        $scope.queryDate=dateFormat(new Date(),'yyyy-MM');
+      }
     });
 
     (function(){
@@ -56,12 +70,14 @@ app.controller('dynamicProduceCtrl',
         if (!storage.organizations) {
           $http({
             method:'get',
-            url:'http://dwt2.hpi.com.cn/api/indicator/getOrganizationtest',
+            url:'http://dwt2.hpi.com.cn/selfbiapi/api/indicator/GetOrganizationTest',
             timeout:5000
           })
-          .success(function(data){ 
-            storage.organizations=JSON.stringify(data);
-            $scope.organizations=data;   
+          .success(function(data){  
+            if (data) {
+              storage.organizations='['+JSON.stringify(data).replace(/,"children":null/mgi, '')+']';
+              $scope.organizations=JSON.parse(storage.organizations);  
+            } 
           })
           .error(function(){
             //
@@ -71,29 +87,31 @@ app.controller('dynamicProduceCtrl',
           $scope.organizations=JSON.parse(storage.organizations); 
         } 
       }
-    });
+    })();
     //测试条目
     //$scope.organizations=[{OrganizationCode:'111',OrganizationName:'222'}];
     //$scope.selectedObject=$scope.organizations[0];
     $scope.endYear=dateFormat(new Date(),'yyyy');
     $scope.beginYear="1970";
-    $scope.queryMonth=dateFormat(new Date(),'yyyy-MM');
+    //$scope.queryMonth=dateFormat(new Date(),'yyyy-MM');
     $scope.queryDate=dateFormat(new Date(),'yyyy-MM-dd');
-    $scope.powerplants=[{value:"0",text:"大连"},{value:"1",text:"哈尔滨"},{value:"2",text:"北京"}];
+    //$scope.powerplants=[{value:"0",text:"大连"},{value:"1",text:"哈尔滨"},{value:"2",text:"北京"}];
     $scope.indicatorName=$stateParams.name;
     $scope.indicatorId=$stateParams.id;
-    $scope.queryPowerplant='请您选择一个电厂';
-    $scope.queryOrganization='请您选择一个分公司';
+    //$scope.queryPowerplant='请您选择一个电厂';
+    $scope.queryOrganization='请您选择组织';
 
     $scope.query=function(){ 
       $ionicViewSwitcher.nextDirection('forward');
       $state.go('quota',{
         id:$scope.indicatorId,
-        name:$scope.indicatorName
-        //start:$scope.queryDateStart,
-        //end:$scope.queryDateEnd,
-        //orgValue:$scope.selectedObject.OrganizationCode,
-        //orgText:$scope.selectedObject.OrganizationName
+        name:$scope.indicatorName,
+        orgType:$scope.orgType,
+        orgId:$scope.orgId,
+        orgName:$scope.orgName,
+        date:$scope.queryDate,
+        dateType:$scope.dateType,
+        unit:$scope.indicatorUnit 
     })};
    /* $http({
       method:'get',
@@ -135,39 +153,39 @@ app.controller('dynamicProduceCtrl',
               linkQueryPowerplant=doc.getElementById('linkQueryPowerplant'),
               linkQueryOrganization=doc.getElementById('linkQueryOrganization'),
               isMonthPicker=null,
-              isDatePicker=null; 
-          linkQueryMonth.addEventListener('tap', function (event) {
-              event.stopPropagation();   
-              var picker = new $.DtPicker({
-                type:"month",
-                endYear:$scope.endYear,
-                beginYear:$scope.beginYear
-              });
-              picker.show(function (rs) { 
-                  $scope.$apply(function(){
-                    $scope.queryMonth=rs.text;
-                  });  
-                  picker.dispose();  
-              });
-          }, false);
+              isDatePicker=null;  
+            linkQueryMonth.addEventListener('tap', function (event) {
+                event.stopPropagation();   
+                var picker = new $.DtPicker({
+                  type:"month",
+                  endYear:$scope.endYear,
+                  beginYear:$scope.beginYear
+                });
+                picker.show(function (rs) { 
+                    $scope.$apply(function(){
+                     $scope.queryDate=rs.text;
+                    });  
+                    picker.dispose();  
+                });
+            }, false); 
+ 
+            linkQueryDate.addEventListener('tap', function (event) {
+                event.stopPropagation();  
+                var picker = new $.DtPicker({
+                  type:"date",
+                  endYear:$scope.endYear,
+                  beginYear:$scope.beginYear
+                });
+                picker.show(function (rs) {
+                    //queryDate.innerText = rs.text; 
+                    $scope.$apply(function(){
+                      $scope.queryDate=rs.text;
+                    }); 
+                    picker.dispose();   
+                });  
+            }, false); 
 
-          linkQueryDate.addEventListener('tap', function (event) {
-              event.stopPropagation();  
-              var picker = new $.DtPicker({
-                type:"date",
-                endYear:$scope.endYear,
-                beginYear:$scope.beginYear
-              });
-              picker.show(function (rs) {
-                  //queryDate.innerText = rs.text; 
-                  $scope.$apply(function(){
-                    $scope.queryDate=rs.text;
-                  }); 
-                  picker.dispose();   
-              });  
-          }, false);
-
-          linkQueryPowerplant.addEventListener('tap',function(event){
+         /* linkQueryPowerplant.addEventListener('tap',function(event){
               event.stopPropagation();
               var picker=new $.PopPicker();
               picker.setData($scope.powerplants);
@@ -177,20 +195,23 @@ app.controller('dynamicProduceCtrl',
                   }); 
                   picker.dispose();   
               });
-          },false);
+          },false);*/
 
           linkQueryOrganization.addEventListener('tap',function(event){
               event.stopPropagation();
-              var picker=new $.PopPicker();
-              picker.setData( $scope.powerplants);
-              picker.show(function(rs){  
+              var picker=new $.PopPicker({layer:3});
+              picker.setData($scope.organizations);
+              picker.show(function(rs){   
                     $scope.$apply(function(){
-                      $scope.queryOrganization=rs[0].text;
+                      $scope.queryOrganization=rs[2].text;
+                      $scope.orgType=rs[2].OriginzationCategoryCode;
+                      $scope.orgId=rs[2].value;
+                      $scope.orgName=rs[2].text;
+                      $scope.isDisabled=false;
                     }); 
                     picker.dispose();   
               });
           },false);
-
       })(mui);
     }); 
 }); 

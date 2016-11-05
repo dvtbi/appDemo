@@ -8,15 +8,15 @@
 		<div class="list">
 		  <label class="item item-input item-stacked-label item-span-custome">
 		    <span class="input-label">日期</span>
-		    <span class="input-label" >20161105</span>
+		    <span class="input-label" >{{date}}</span>
 		  </label>
 		  <label class="item item-input item-stacked-label item-span-custome">
-		    <span class="input-label">电厂</span>
-		    <span class="input-label" >大连电厂</span>
+		    <span class="input-label">组织</span>
+		    <span class="input-label" >{{orgName}}</span>
 		  </label>
 		  <label class="item item-input item-stacked-label item-span-custome">
-		    <span class="input-label">大连电厂发电量</span>
-		    <span class="input-label" >1111</span>
+		    <span class="input-label">{{indicatorName}}（{{unit}}）</span>
+		    <span class="input-label" >{{indicatorNumber}} </span>
 		  </label>
 		</div>
 		<button class="button button-full button-positive" ng-click="goBack()"   nav-direction="back" >返回</button>

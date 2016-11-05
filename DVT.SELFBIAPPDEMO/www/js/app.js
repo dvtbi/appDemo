@@ -30,7 +30,7 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
   })
   .state('quota',{
     cache:false,
-    url:'/quota/:id/:name/:start/:orgValue/:orgText',
+    url:'/quota/:id/:name/:orgId/:orgName/:orgType/:date/:dateType/:unit',
     templateUrl:'template/quota.html',
     controller:'quotaCtrl'
   })
@@ -48,7 +48,7 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
     })
    .state('reportList',{
       cache:false,
-      url:'/reportList/:type/:name',
+      url:'/reportList/:name',
       templateUrl:'template/reportList.html',
       controller:'reportListCtrl'
     })

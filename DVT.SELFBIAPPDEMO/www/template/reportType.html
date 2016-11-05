@@ -2,7 +2,7 @@
      <!--app header bar start-->
 	<ion-header-bar class="bar-stable"  style="background-color:#e6e6e6">
 	 	<button class="button" ng-click="goBack()" nav-direction="back"><i class="icon ion-reply"></i></button> 
-    	<h1 class="title" style="text-align:center">{{patternName}}</h1>
+    	<h1 class="title" style="text-align:center"></h1>
     	<a class="button" href="#/home"><i class=" icon ion-home"></i></a>
     </ion-header-bar>
 	  <!--app header bar end-->
@@ -14,27 +14,14 @@
 		</ion-refresher>
 
 	  	<div class="list">  
-		  <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-		    标煤单价完成情况（分公司）
-		  </a>  
-		    <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-		    标煤单价累计完成情况 
-		  </a> 
-		  <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-		    标煤单价完成情况（电厂）
-		  </a> 
-		    <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-		    生产周报分公司容量及出力系数等指标比较
-		  </a>  
-		    <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-		    生产周报分公司容量及出力系数等指标比较时间段
-		  </a>  
-		    <a class="item item-arrow-right" href="#/reportList/1/1" nav-direction="forward">
-		    生产周报分公司容量及出力系数等指标比较月报
+	  	 <div class="item item-divider" style="text-align:center">
+		    {{patternName}}
+		  </div>
+		  <a ng-repeat="item in items" class="item item-arrow-right" href="#/reportList/{{item.reportCategoryName}}" nav-direction="forward">
+		    {{item.reportCategoryName}}
 		  </a>   
 		</div> 
-  	  </ion-content>
-
+  	  </ion-content> 
   <!--app content end-->  
   <ion-footer-bar style="background-color:#eeeeee" >
   <span style="text-align:center;width:100%">京备：———————</span> 

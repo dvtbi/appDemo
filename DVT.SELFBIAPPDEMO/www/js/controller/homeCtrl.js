@@ -67,7 +67,7 @@ app.controller('homeCtrl',
 			$state.go('tendency',{query:n});
 		}else if (i==-1) {
 			//openPopover(e);  
-			$ionicViewSwitcher.nextDirection('forward');
+			$ionicViewSwitcher.nextDirection('forward'); 
 			$state.go('reportType',{query:$scope.IndicatorName,patternName:$scope.patternObject.getNewString()});
 		}
 		else{
@@ -79,7 +79,23 @@ app.controller('homeCtrl',
 
 	// redirect to Dynamic produce
 	$scope.goDynamicProduce=function(i,n,u){
-		$state.go('dynamicProduce',{id:i,name:n,unit:u});
+		if (i==0) {
+			/*$ionicPopup.alert({ 
+			  title: '友情提示', // String. 弹窗的标题。
+			  subTitle: '功能暂未开放，请选择其他关键词', // String (可选)。弹窗的子标题。
+			  template: '', // String (可选)。放在弹窗body内的html模板。
+			  templateUrl: '', // String (可选)。 放在弹窗body内的html模板的URL。
+			  okText: '确定', // String (默认: 'OK')。OK按钮的文字。
+			  okType: 'button-positive', // String (默认: 'button-positive')。OK按钮的类型。
+			});*/
+			//跳转到趋势图页面
+			$ionicViewSwitcher.nextDirection('forward');
+			$state.go('tendency',{query:n});
+		} 
+		else{
+			$ionicViewSwitcher.nextDirection('forward');
+			$state.go('dynamicProduce',{id:i,name:n,unit:u}); 
+		} 
 	};
 
 	// 判断字符串是否匹配关键字
@@ -92,7 +108,7 @@ app.controller('homeCtrl',
 			},
 			getNewString:function(){
 				var str=$scope.IndicatorName;
-				return str.replace(this.pattern,'');
+				return str.replace($scope.patternObject.pattern,'');
 			} 
 	};
 
@@ -106,6 +122,13 @@ app.controller('homeCtrl',
 		$scope.IsSearchFocus=false;
 		document.getElementById('lblSearch').classList.remove('item-input-focus');
 	}
+	$scope.sendQuery=function(event){ 
+		var txtSearch=document.getElementById('search');
+		$scope.IndicatorName=event.target.innerText.replace(/^[\s]*|[\s]*$/,'');  
+		$timeout(function(){
+			txtSearch.focus();
+		},200); 
+	};
 	angular.element(document).ready(function(){
 		var initialSearchBox=function(){
 			var doc=document,
@@ -123,7 +146,7 @@ app.controller('homeCtrl',
 		 };
 		 initialSearchBox();
 
-		var doc=document,
+		/*var doc=document,
 			tags=doc.querySelectorAll('#divTags a.item-arrow-plus'),
 			txtSearch=doc.getElementById('search');
 		if (tags && tags.length && tags.length>0) {
@@ -132,8 +155,9 @@ app.controller('homeCtrl',
 					item.addEventListener('click',function(event){ 
 						event.preventDefault();
 						event.stopPropagation();
-						$scope.$apply(function(){  
-							$scope.IndicatorName=item.innerText.replace(/^[\s]*|[\s]*$/,''); 
+						$scope.$apply(function(){   
+							$scope.IndicatorName=item.innerText.replace(/^[\s]*|[\s]*$/,'');  
+							console.log($scope.IndicatorName)
 							$timeout(function(){
 								txtSearch.focus();
 							},200);
@@ -141,6 +165,6 @@ app.controller('homeCtrl',
 					});
 				})(tags[i]); 
 			}
-		}
+		}*/
 	});
 }); 
