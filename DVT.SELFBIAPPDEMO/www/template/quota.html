@@ -1,49 +1,27 @@
-<ion-view cache-view="false" ng-controller="produceCtrl"> 
-<style>
-	.item b:first-child{
-		display:inline-block;
-		padding-left:10px;
-		width:180px;
-		font-weight:500;
-	}
-	.item b:last-child{
-		display:inline-block; 
-		font-weight:400;
-		color:gray; 
-	}
-</style>
+<ion-view cache-view="false"> 
 	<ion-header-bar class="bar-stable" style="background-color:#e6e6e6">
-	 	<a class="button" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{orgValue}}/{{orgText}}" nav-direction="back"><i class="icon ion-reply"></i></a> 
-    	<h1 class="title" style="text-align:center">{{indicatorName}}</h1>
+	 	<button class="button" ng-click="goBack()" nav-direction="back"><i class="icon ion-reply"></i> </button> 
+    	<h1 class="title" style="text-align:center">指标详细</h1>
     	<a class="button" href="#/home"><i class=" icon ion-home"></i></a>
     </ion-header-bar>
-	<ion-content > 
-		 	<div class="list card">
-			  <div class="item" >
-			   <!-- <img src="mcfly.jpg">-->
-			   <b  >日期</b> <b>{{start}}</b> 
-			  </div>  
-			  <div class="item">
-			   <b>电厂</b> <b >{{orgText}}</b>   
-			  </div> 
-			   <div class="item">
-			   <!-- <img src="mcfly.jpg">
-			    <h2>组织</h2>-->
-			     <b >{{indicatorName}}</b> <b>{{indicatorNumber}}</b>  
-			  </div>
-			  <!-- <div class="item item-body">
-			    <img class="full-image" src="delorean.jpg">
-			    <p>
-			      This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
-			      the content is from a card-body consisting of an image and paragraph text. The footer
-			      consists of tabs, icons aligned left, within the card-footer.
-			    </p>
-			    <p>
-			      <a href="#" class="subdued">1 Like</a>
-			      <a href="#" class="subdued">5 Comments</a>
-			    </p>
-			  </div>-->
-			</div> 
-			<a class="button button-full button-positive" href="#/produce/{{indicatorId}}/{{indicatorName}}/{{start}}/{{orgValue}}/{{orgText}}"  nav-direction="back" >返回</a>
+	<ion-content >  
+		<div class="list">
+		  <label class="item item-input item-stacked-label item-span-custome">
+		    <span class="input-label">日期</span>
+		    <span class="input-label" >20161105</span>
+		  </label>
+		  <label class="item item-input item-stacked-label item-span-custome">
+		    <span class="input-label">电厂</span>
+		    <span class="input-label" >大连电厂</span>
+		  </label>
+		  <label class="item item-input item-stacked-label item-span-custome">
+		    <span class="input-label">大连电厂发电量</span>
+		    <span class="input-label" >1111</span>
+		  </label>
+		</div>
+		<button class="button button-full button-positive" ng-click="goBack()"   nav-direction="back" >返回</button>
 	 </ion-content>
+	    <ion-footer-bar>
+	  		<span style="text-align:center;width:100%">京备：———————</span> 
+	  </ion-footer-bar>
 </ion-view>

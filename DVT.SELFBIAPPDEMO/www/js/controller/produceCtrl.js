@@ -1,4 +1,4 @@
-app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$stateParams,$ionicViewSwitcher) {
+app.controller('produceCtrl', function ($scope,$http,$state,$stateParams,$ionicViewSwitcher) {
     // 根据Date格式化字符串
     var dateFormat=function(o){
       var f=function(i,isDay){
@@ -20,6 +20,7 @@ app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$st
       callback: function (val) {  //Mandatory
         $scope.queryDateStart=dateFormat(new Date(val)); 
         //console.log('Return value from the datepicker popup is : ' + val, new Date(val));
+      
       },
       disabledDates: [            //Optional
         //new Date(2016, 2, 16),
@@ -34,9 +35,25 @@ app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$st
       to: new Date(2016, 10, 30), //Optional
       inputDate: new Date(),      //Optional
       mondayFirst: true,          //Optional
-      //disableWeekdays: [0],       //Optional
       closeOnSelect: false,       //Optional
-      templateType: 'popup'       //Optional
+      templateType: 'popup',      //Optional 其他：popup,modal
+      setLabel:'设置',
+      todayLabel: '今天',
+      closeLabel: '关闭',
+      dateFormat:'yyyy年MM月dd日',
+      weeksList: ["日", "一", "二", "三", "四", "五", "六"],
+      monthsList: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+      /*setLabel: 'Set',
+      todayLabel: 'Today',
+      closeLabel: 'Close',
+      inputDate: new Date(),
+      mondayFirst: true,
+      weeksList: ["S", "M", "T", "W", "T", "F", "S"],
+      monthsList: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
+      templateType: 'popup',
+      showTodayButton: false,
+      closeOnSelect: false,
+      disableWeekdays: []*/
     };
     // 调用datepicker
     $scope.openDatePickerStart = function(e){
@@ -44,13 +61,58 @@ app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$st
       ionicDatePicker.openDatePicker(ipObj1);
     }; 
 
-    $http({
+    (function(){
+      var storage=window.localStorage;
+      if (storage) {
+        if (!storage.organizations) {
+          $http({
+            method:'get',
+            url:'http://dwt2.hpi.com.cn/api/indicator/getOrganizationtest',
+            timeout:5000
+          })
+          .success(function(data){ 
+            storage.organizations=JSON.stringify(data);
+            $scope.organizations=data;
+            $scope.selectedObject=$scope.organizations[0]; 
+            if ($stateParams.value && $stateParams.text) {
+              for (var i = 0,len=$scope.organizations.length; i < len; i++) {
+                if ($stateParams.value==$scope.organizations[i].OrganizationCode) {
+                   $scope.selectedObject =$scope.organizations[i];
+                   break;
+                }
+              }
+            }
+          })
+          .error(function(){
+            //
+            storage.organizations=[]; 
+          });
+        }else{
+          $scope.organizations=JSON.parse(storage.organizations);
+          $scope.selectedObject=$scope.organizations[0]; 
+          if ($stateParams.value && $stateParams.text) {
+            for (var i = 0,len=$scope.organizations.length; i < len; i++) {
+              if ($stateParams.value==$scope.organizations[i].OrganizationCode) {
+                 $scope.selectedObject =$scope.organizations[i];
+                 break;
+              }
+            }
+          }
+        }
+        
+      }
+    })();
+ 
+   /* $http({
       method:'get',
-      url:'http://10.2.17.32:65510/api/indicator/getOrganization',
-      params:{},
+      url:'http://dwt2.hpi.com.cn/api/indicator/getOrganizationtest',
+      //url:'http://10.2.17.32:65510/api/indicator/getOrganization',
+      params:{
+        
+      },
       timeout:5000
     })
-    .success(function(data){
+    .success(function(data){ 
       $scope.organizations=data;
       $scope.selectedObject=$scope.organizations[0]; 
       if ($stateParams.value && $stateParams.text) {
@@ -59,12 +121,12 @@ app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$st
              $scope.selectedObject =$scope.organizations[i];
              break;
           }
-        } 
+        }
       }
     })
     .error(function(){
       //
-    });
+    });*/
 
    // $scope.organizations=[{value:"0",text:"大连"},{value:"1",text:"哈尔滨"},{value:"2",text:"北京"}];
     $scope.indicatorName=$stateParams.name;
@@ -86,4 +148,4 @@ app.controller('produceCtrl', function ($scope,$http, ionicDatePicker,$state,$st
         orgValue:$scope.selectedObject.OrganizationCode,
         orgText:$scope.selectedObject.OrganizationName
       })};
-});
+}); 

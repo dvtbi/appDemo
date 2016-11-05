@@ -1,4 +1,4 @@
-app.controller('tendencyCtrl', ['$scope', '$state', '$stateParams', function($scope, $state, $stateParams) {
+app.controller('tendencyCtrl',  function($scope, $state, $stateParams) {
 
   
     $scope.goback=function(event){
@@ -101,4 +101,4 @@ app.controller('tendencyCtrl', ['$scope', '$state', '$stateParams', function($sc
     myChart.setOption(option);
 
    
-}])
+})

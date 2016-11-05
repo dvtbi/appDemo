@@ -1,4 +1,7 @@
 /* Empty. Add your own CSS if you like */
+.overflow-scroll .scroll{
+  /* height:auto;*/
+}
 /* search box's class */
 .query-list{
   z-index: 999;
@@ -6,20 +9,22 @@
   top: 50px;
   left: 11px;
   width: 300px;
+  /*background-color:#a2a2a2;
+  border-style:solid;
+  border-width:0px 1px 1px 1px; */
 }
 .query-list li {
   padding-top:5px;
   padding-bottom:5px; 
-  border-left-color:#ddd;
-  border-right-color:#ddd;
-  opacity:0.6;
+  border-color:white;   
+  width:99%;
 }
-.query-list li:last-child{ 
-  border-bottom-color:#ddd;
+/*.query-list li:last-child{ 
+  border-bottom-color:#a2a2a2;
 }
 .query-list li:first-child{
-   border-top-color:#ddd;
-} 
+   border-top-color:#eeeeee;
+} */
 
 /* home page icon name's font-size */
 .hi-icon {
@@ -31,49 +36,172 @@
 	padding:5 5 5 5;
 }
 
+/* search box's class */
+.item-input-focus{
+  border-color:#4791ff;
+}
+
 /* home icon's class*/
-@media screen and (max-width:320px){
   .hi-icon{
     margin:15px !important;
+    margin-top:20px !important;
+    margin-bottom:40px !important;
+   /* background-color: #a2a2a2 !important;*/
+    color:#2b2b2b;
+  }
+
+/* report list arrow right */
+.item-arrow-right:after{
+  -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    position: absolute;
+    top: 50%;
+    right: 11px;
+    display: block;
+    margin-top: -8px;
+    color: #ccc;
+    content: "\f125";
+    /*content: "\f125";*/
+    text-transform: none;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 16px;
+    font-family: 'Ionicons';
+    line-height: 1;
+    speak: none;
+  }
+  /* home tags's css */
+  .item-tag{
+    padding-top:8px;
+    padding-bottom:8px;
+    padding-left:30px;
+  }
+
+  .item-arrow-plus:after{
+  -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    position: absolute;
+    top: 50%;
+    right: 11px;
+    display: block;
+    margin-top: -8px;
+    color: #ccc;
+    content: "\f218";
+    /*content: "\f125";*/
+    text-transform: none;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-size: 16px;
+    font-family: 'Ionicons';
+    line-height: 1;
+    speak: none;
+  }
+
+  /* mui dtpicker's class */
+  .mui-btn{
+    /* font-size: 14px; */
+      /* font-weight: 400; */
+      /* line-height: 1.42; */
+      /* position: relative; */
+      /* display: inline-block; */
+      /* margin-bottom: 0; */
+      /* padding: 6px 12px; */
+      /* cursor: pointer; */
+      -webkit-transition: all;
+      transition: all;
+      -webkit-transition-timing-function: linear;
+      transition-timing-function: linear;
+      -webkit-transition-duration: .2s;
+      /* transition-duration: .2s; */
+      /* text-align: center; */
+      /* vertical-align: top; */
+      /* white-space: nowrap; */
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+      background-color: #fff;
+      background-clip: padding-box;
+  }
+  .mui-btn-blue{
+    color: #fff;
+      background-color: #007aff;
 
   }
-   .hi-icon:before{
-    line-height:65px  !important;
+  .mui-backdrop{
+    position: fixed;
+      z-index: 998;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(0,0,0,.3);
+  }
+
+  /* quota span's class */
+  .item-span-custome :first-child{
+    display:inline-block; 
+    width:180px;
+    font-weight:500;  
+    padding-top:15px;
+  }
+  .item-span-custome span:last-child{
+      display: block;
+      padding-top: 12px; 
+      height: 34px;
+      color: #111;
+      vertical-align: middle;
+      font-size: 14px; 
+      padding-left:15px;
+      color:gray;
+      padding-bottom:30px;
+  }
+
+@media screen and (max-width:320px){
+    .hi-icon{ 
+     width:60px !important;
+     height:60px !important;  
+  }
+
+   .hi-icon:before{ 
+    line-height:60px  !important;
     font-size:30px  !important;
   }
 }
 @media screen and (min-width:321px) and (max-width: 375px){
-  .hi-icon{
-     margin:15px !important;
+  .hi-icon{ 
      width:70px !important;
      height:70px !important;  
   }
   .hi-icon:before{
-    line-height:75px  !important;
+    line-height:70px  !important;
     font-size:30px  !important;
   }
 }
 @media screen and (min-width:376px) and (max-width: 736px){
-  .hi-icon{
-     margin:15px !important;
+  .hi-icon{ 
      width:80px !important;
      height:80px !important;  
      font-size:90% !important;
   }
   .hi-icon:before{
-    line-height:90px  !important;
+    line-height:80px  !important;
     font-size:30px  !important;
   }
 }
 @media screen and (min-width:769px) and (max-width: 1024px){
-  .hi-icon{
-     margin:15px !important;
+  .hi-icon{ 
      width:90px !important;
      height:90px !important;  
      font-size:100% !important;
   }
   .hi-icon:before{
-    line-height:100px  !important;
+    line-height:90px  !important;
     font-size:50px  !important;
   }
 }

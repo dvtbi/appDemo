@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires' 
-var app=angular.module('selfbiappdemo', ['ionic','ionic-datepicker']);
+var app=angular.module('selfbiappdemo', ['ionic']);
  
 // route config
 app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
@@ -40,7 +40,25 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
     templateUrl:'template/tendency.html',
     controller:'tendencyCtrl'
   })
-
+   .state('reportType',{
+      cache:false,
+      url:'/reportType/:query/:patternName',
+      templateUrl:'template/reportType.html',
+      controller:'reportTypeCtrl'
+    })
+   .state('reportList',{
+      cache:false,
+      url:'/reportList/:type/:name',
+      templateUrl:'template/reportList.html',
+      controller:'reportListCtrl'
+    })
+  .state('dynamicProduce',{
+      cache:false,
+      url:'/dynamicProduce/:id/:name/:unit',
+      templateUrl:'template/dynamicProduce.html',
+      controller:'dynamicProduceCtrl'
+    });
+  
   $ionicConfigProvider.views.maxCache(0);
 })
 
@@ -61,26 +79,4 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
     }
   });
 })
-
-// DatePicker
-.config(function (ionicDatePickerProvider) {
-    var datePickerObj = {
-      inputDate: new Date(),
-      titleLabel: 'Select a Date',
-      setLabel: 'Set',
-      todayLabel: 'Today',
-      closeLabel: 'Close',
-      mondayFirst: false,
-      weeksList: ["S", "M", "T", "W", "T", "F", "S"],
-      monthsList: ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
-      templateType: 'popup',
-      from: new Date(2012, 8, 1),
-      to: new Date(2018, 8, 1),
-      showTodayButton: true,
-      dateFormat: 'dd MMMM yyyy',
-      closeOnSelect: false,
-      disableWeekdays: []
-    };
-    ionicDatePickerProvider.configDatePicker(datePickerObj);
-  })
 

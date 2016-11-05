@@ -1,15 +1,4 @@
- <ion-view> 
- <style>
- .hi-icon{
-  width:60px;
-  height:60px; 
-  margin-right:50px; 
- }
-.hi-icon:before{
-  line-height:60px;
-  font-size:30px;
-}
- </style>
+ <ion-view>  
      <!--app header bar start-->
   <ion-header-bar class="bar-stable" style="background-color:#e6e6e6">
     <!--<a class="button"><i class="icon ion-navicon"></i></a>-->
@@ -17,13 +6,13 @@
     <a class="button" href="#/home"><i class="icon ion-home"></i></a>
   </ion-header-bar>
   <!--app header bar end-->
-  <!--app content start-->
-  <ion-content  ng-controller="homeCtrl" id="divContent" style="background:#41ab6b">  
+  <!--app content start #41ab6b-->
+  <ion-content  id="divContent" style="background:#eeeeee;">  
     <!--search start-->
     <div class="list list-inset" >
-      <label class="item item-input" id="lblSearch" style="background:#41ab6b">
+      <label class="item item-input" id="lblSearch" style="background:#eeeeee">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Search" ng-keyup="search($event)" ng-focus="searchFocus()" ng-model="IndicatorName" ng-blur="searchBlur()">
+        <input type="text" id="search" placeholder="Search" ng-keyup="search($event)" ng-focus="searchFocus()" ng-model="IndicatorName" ng-blur="searchBlur()">
       </label>
     </div>
     <!--search end--> 
@@ -36,25 +25,34 @@
     <ul class="list query-list" ng-show="IndicatorName!=undefined && IndicatorName!='' && IsSearchFocus" 
                       style="width:{{queryListWidth}}; 
                       left:{{queryListLeft}};
-                      top:{{queryListTop}}" >
-        <li class="item" ng-repeat="item in filterItems=(items | filter:IndicatorName | limitTo:5)" ng-click="goProduce('{{item.IndicatorId}}','{{item.IndicatorName}}')" >
+                      top:{{queryListTop}};
+                      height:200px;
+                      overflow-y:auto;
+                      overflow-x:hidden;" >
+        <li class="item" ng-repeat="item in filterItems=(items | filter:IndicatorName)" ng-click="goDynamicProduce('{{item.IndicatorId}}','{{item.IndicatorName}}','{{item.IndicatorUnit}}',$event)" >
           {{item.IndicatorName}}
-        </li> 
-   
+        </li>  
     </ul> 
-    <ul class="list query-list" ng-show="filterItems.length==0 && IndicatorName!=undefined && IndicatorName!='' && IsSearchFocus" style="width:{{queryListWidth}}; 
+    <ul class="list query-list" ng-show="filterItems.length==0 && IndicatorName!=undefined && IndicatorName!='' && IsSearchFocus && (IndicatorName.replace(patternObject.pattern,'') !=IndicatorName && IndicatorName.replace(patternObject.pattern,'').length>0)" style="
+                      width:{{queryListWidth}};
                       left:{{queryListLeft}};
-                      top:{{queryListTop}}">
-         <li class="item" >暂无<strong>{{ IndicatorName | limitTo:5}}</strong>相关记录.</li>
+                      top:{{queryListTop}}; height:auto !important;">
+         <li class="item" ng-click="goProduce('{{-1}}','{{IndicatorName}}',$event)"><strong>{{ IndicatorName}}</strong></li>
     </ul>
+   <!-- <ul class="list query-list" ng-show="filterItems.length==0 && IndicatorName!=undefined && IndicatorName!='' && IsSearchFocus" style="width:{{queryListWidth}} ;
+                      left:{{queryListLeft}};
+                      top:{{queryListTop}}; height:auto !important;">
+         <li class="item" >暂无<strong>{{ IndicatorName | limitTo:5}}</strong>相关记录.</li>
+    </ul> -->
     <div> 
       <section id="set-8" class="section">
-        <div class="hi-icon-wrap hi-icon-effect-8" style="padding-top:5px;padding-bottom:5px;height:none;background:#41ab6b">
-          <a href="#set-1" class="hi-icon hi-icon-mobile">领导驾驶舱</a> 
-          <a href="#set-1" class="hi-icon hi-icon-screen">安全生产</a> 
-          <a href="#set-1" class="hi-icon hi-icon-earth">市场营销</a> 
-          <a href="#set-1" class="hi-icon hi-icon-support">燃料经营</a>
-          <a href="#set-1" class="hi-icon hi-icon-locked">财务经营</a>
+        <div class="hi-icon-wrap hi-icon-effect-8" style="padding-top:5px;padding-bottom:5px;height:none;background:#eeeeee">
+          <a href="#set-1" class="hi-icon hi-icon-user">领导驾驶舱</a> 
+          <a href="#set-1" class="hi-icon hi-icon-pencil">预算</a> 
+          <a href="#set-1" class="hi-icon hi-icon-bookmark">财务</a> 
+          <a href="#set-1" class="hi-icon hi-icon-earth">燃料</a>
+          <a href="#set-1" class="hi-icon hi-icon-cog">生产</a>
+          <a href="#set-1" class="hi-icon hi-icon-chat">营销</a>
           <!-- <a href="#set-2" class="hi-icon hi-icon-cog">Settings</a>
           <a href="#set-2" class="hi-icon hi-icon-clock">Time</a>
           <a href="#set-2" class="hi-icon hi-icon-videos">Videos</a>
@@ -64,146 +62,35 @@
           <a href="#set-3" class="hi-icon hi-icon-pencil">Edit</a>-->
         </div>
         </section>
-       <!--  <div class="hi-icon-wrap hi-icon-effect-1 hi-icon-effect-1b">
-          <a href="#set-1" class="hi-icon hi-icon-mobile">Mobile</a>
-          <a href="#set-1" class="hi-icon hi-icon-screen">Desktop</a>
-          <a href="#set-1" class="hi-icon hi-icon-earth">Partners</a>
-          <a href="#set-1" class="hi-icon hi-icon-support">Support</a>
-          <a href="#set-1" class="hi-icon hi-icon-locked">Security</a>
-        </div>
-      </section>
-      <section id="set-2">
-        <div class="hi-icon-wrap hi-icon-effect-2 hi-icon-effect-2a">
-          <a href="#set-2" class="hi-icon hi-icon-cog">Settings</a>
-          <a href="#set-2" class="hi-icon hi-icon-clock">Time</a>
-          <a href="#set-2" class="hi-icon hi-icon-videos">Videos</a>
-          <a href="#set-2" class="hi-icon hi-icon-list">List</a>
-          <a href="#set-2" class="hi-icon hi-icon-refresh">Refresh</a>
-        </div>
-        <div class="hi-icon-wrap hi-icon-effect-2 hi-icon-effect-2b">
-          <a href="#set-2" class="hi-icon hi-icon-cog">Settings</a>
-          <a href="#set-2" class="hi-icon hi-icon-clock">Time</a>
-          <a href="#set-2" class="hi-icon hi-icon-videos">Videos</a>
-          <a href="#set-2" class="hi-icon hi-icon-list">List</a>
-          <a href="#set-2" class="hi-icon hi-icon-refresh">Refresh</a>
-        </div>
-      </section>
-      <section id="set-3">
-        <div class="hi-icon-wrap hi-icon-effect-3 hi-icon-effect-3a">
-          <a href="#set-3" class="hi-icon hi-icon-images">Images</a>
-          <a href="#set-3" class="hi-icon hi-icon-pencil">Edit</a>
-          <a href="#set-3" class="hi-icon hi-icon-link">Link</a>
-          <a href="#set-3" class="hi-icon hi-icon-mail">Mail</a>
-          <a href="#set-3" class="hi-icon hi-icon-location">Location</a>
-        </div>
-        <div class="hi-icon-wrap hi-icon-effect-3 hi-icon-effect-3b">
-          <a href="#set-3" class="hi-icon hi-icon-images">Images</a>
-          <a href="#set-3" class="hi-icon hi-icon-pencil">Edit</a>
-          <a href="#set-3" class="hi-icon hi-icon-link">Link</a>
-          <a href="#set-3" class="hi-icon hi-icon-mail">Mail</a>
-          <a href="#set-3" class="hi-icon hi-icon-location">Location</a>
-        </div>
-      </section>
-      <section id="set-4">
-        <div class="hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4a">
-          <a href="#set-4" class="hi-icon hi-icon-archive">Archive</a>
-          <a href="#set-4" class="hi-icon hi-icon-chat">Chat</a>
-          <a href="#set-4" class="hi-icon hi-icon-bookmark">Bookmarks</a>
-          <a href="#set-4" class="hi-icon hi-icon-user">User</a>
-          <a href="#set-4" class="hi-icon hi-icon-contract">Contact</a>
-        </div>
-        <div class="hi-icon-wrap hi-icon-effect-4 hi-icon-effect-4b">
-          <a href="#set-4" class="hi-icon hi-icon-archive">Archive</a>
-          <a href="#set-4" class="hi-icon hi-icon-chat">Chat</a>
-          <a href="#set-4" class="hi-icon hi-icon-bookmark">Bookmarks</a>
-          <a href="#set-4" class="hi-icon hi-icon-user">User</a>
-          <a href="#set-4" class="hi-icon hi-icon-contract">Contact</a>
-        </div>
-        <p>Note that the dashed border on a round pseudo-element (border-radius: 50%) does not work in FF 21.0</p>
-      </section>
-      <section id="set-5">
-        <div class="hi-icon-wrap hi-icon-effect-5 hi-icon-effect-5a">
-          <a href="#set-5" class="hi-icon hi-icon-mobile">Mobile</a>
-          <a href="#set-5" class="hi-icon hi-icon-screen">Desktop</a>
-          <a href="#set-5" class="hi-icon hi-icon-earth">Partners</a>
-          <a href="#set-5" class="hi-icon hi-icon-support">Support</a>
-          <a href="#set-5" class="hi-icon hi-icon-locked">Security</a>
-        </div>
-       <div class="hi-icon-wrap hi-icon-effect-5 hi-icon-effect-5b">
-          <a href="#set-5" class="hi-icon hi-icon-mobile">Mobile</a>
-          <a href="#set-5" class="hi-icon hi-icon-screen">Desktop</a>
-          <a href="#set-5" class="hi-icon hi-icon-earth">Partners</a>
-          <a href="#set-5" class="hi-icon hi-icon-support">Support</a>
-          <a href="#set-5" class="hi-icon hi-icon-locked">Security</a>
-        </div>
-        <div class="hi-icon-wrap hi-icon-effect-5 hi-icon-effect-5c">
-          <a href="#set-5" class="hi-icon hi-icon-mobile">Mobile</a>
-          <a href="#set-5" class="hi-icon hi-icon-screen">Desktop</a>
-          <a href="#set-5" class="hi-icon hi-icon-earth">Partners</a>
-          <a href="#set-5" class="hi-icon hi-icon-support">Support</a>
-          <a href="#set-5" class="hi-icon hi-icon-locked">Security</a>
-        </div>
-        <div class="hi-icon-wrap hi-icon-effect-5 hi-icon-effect-5d">
-          <a href="#set-5" class="hi-icon hi-icon-mobile">Mobile</a>
-          <a href="#set-5" class="hi-icon hi-icon-screen">Desktop</a>
-          <a href="#set-5" class="hi-icon hi-icon-earth">Partners</a>
-          <a href="#set-5" class="hi-icon hi-icon-support">Support</a>
-          <a href="#set-5" class="hi-icon hi-icon-locked">Security</a>
-        </div>
-      </section>
-      <section id="set-6">
-        <div class="hi-icon-wrap hi-icon-effect-6">
-          <a href="#set-6" class="hi-icon hi-icon-cog">Settings</a>
-          <a href="#set-6" class="hi-icon hi-icon-support">Support</a>
-          <a href="#set-6" class="hi-icon hi-icon-star">Fav</a>
-          <a href="#set-6" class="hi-icon hi-icon-contract">Contract</a>
-          <a href="#set-6" class="hi-icon hi-icon-refresh">Refresh</a>
-        </div>
-      </section>
-      <section id="set-7">
-        <div class="hi-icon-wrap hi-icon-effect-7 hi-icon-effect-7a">
-          <a href="#set-7" class="hi-icon hi-icon-cog">Settings</a>
-          <a href="#set-7" class="hi-icon hi-icon-clock">Time</a>
-          <a href="#set-7" class="hi-icon hi-icon-videos">Videos</a>
-          <a href="#set-7" class="hi-icon hi-icon-list">List</a>
-          <a href="#set-7" class="hi-icon hi-icon-refresh">Refresh</a>
-        </div>
-        <div class="hi-icon-wrap hi-icon-effect-7 hi-icon-effect-7b">
-          <a href="#set-7" class="hi-icon hi-icon-cog">Settings</a>
-          <a href="#set-7" class="hi-icon hi-icon-clock">Time</a>
-          <a href="#set-7" class="hi-icon hi-icon-videos">Videos</a>
-          <a href="#set-7" class="hi-icon hi-icon-list">List</a>
-          <a href="#set-7" class="hi-icon hi-icon-refresh">Refresh</a>
-        </div>
-      </section>
-      <section id="set-8">
-        <div class="hi-icon-wrap hi-icon-effect-8">
-          <a href="#set-8" class="hi-icon hi-icon-archive">Archive</a>
-          <a href="#set-8" class="hi-icon hi-icon-chat">Chat</a>
-          <a href="#set-8" class="hi-icon hi-icon-bookmark">Bookmarks</a>
-          <a href="#set-8" class="hi-icon hi-icon-user">User</a>
-          <a href="#set-8" class="hi-icon hi-icon-contract">Contact</a>
-        </div>
-      </section>
-      <section id="set-9">
-        <div class="hi-icon-wrap hi-icon-effect-9 hi-icon-effect-9a">
-          <a href="#set-9" class="hi-icon hi-icon-images">Images</a>
-          <a href="#set-9" class="hi-icon hi-icon-pencil">Edit</a>
-          <a href="#set-9" class="hi-icon hi-icon-link">Link</a>
-          <a href="#set-9" class="hi-icon hi-icon-mail">Mail</a>
-          <a href="#set-9" class="hi-icon hi-icon-location">Location</a>
-        </div>
-        <div class="hi-icon-wrap hi-icon-effect-9 hi-icon-effect-9b">
-          <a href="#set-9" class="hi-icon hi-icon-images">Images</a>
-          <a href="#set-9" class="hi-icon hi-icon-pencil">Edit</a>
-          <a href="#set-9" class="hi-icon hi-icon-link">Link</a>
-          <a href="#set-9" class="hi-icon hi-icon-mail">Mail</a>
-          <a href="#set-9" class="hi-icon hi-icon-location">Location</a>
-        </div>
-      </section>-->
     </div><!-- /container -->
+    <div id="divTags" class="list"> 
+        <div class="item item-divider" style="text-align:right">
+          Tags
+        </div> 
+        <a class="item item-tag item-arrow-plus" href="#">
+          发电量
+        </a>
+        <a class="item item-tag item-arrow-plus" href="#">
+          发电量趋势图
+        </a>
+        <a class="item item-tag item-arrow-plus" href="#">
+          机组日发电量
+        </a> 
+           <a class="item item-tag item-arrow-plus" href="#">
+          年计划发电量
+        </a> 
+           <a class="item item-tag item-arrow-plus" href="#">
+          月计划发电量
+        </a> 
+           <a class="item item-tag item-arrow-plus" href="#">
+          月实际发电量
+        </a> 
+    </div>
   </ion-content>
   <!--app content end-->  
+  <ion-footer-bar style="background-color:#eeeeee" >
+  <span style="text-align:center;width:100%">京备：———————</span> 
+  </ion-footer-bar>
 </ion-view> 
  
     
