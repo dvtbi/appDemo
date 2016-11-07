@@ -1,5 +1,5 @@
 app.controller('homeCtrl', 
-	function($scope,$state,$stateParams,$http,$ionicViewSwitcher,$timeout){
+	function($scope,$state,$stateParams,$http,$ionicViewSwitcher,$timeout,$ionicScrollDelegate){
 	// 搜索框是否获取焦点（true），用于判断搜索box隐藏与显示
 	$scope.IsSearchFocus=false;
 	//$scope.IndicatorName=$stateParams.query?$stateParams.query:'';
@@ -105,14 +105,20 @@ app.controller('homeCtrl',
 		$scope.IsSearchFocus=false;
 		document.getElementById('lblSearch').classList.remove('item-input-focus');
 	}
+	// 快速关键字
 	$scope.sendQuery=function(event){ 
 		event.preventDefault();
 		var txtSearch=document.getElementById('search');
-		$scope.IndicatorName=event.target.innerText.replace(/^[\s]*|[\s]*$/,'');  
+		txtSearch.blur();  
+		$scope.IndicatorName=event.target.innerText.replace(/^[\s]*|[\s]*$/,'');   
+		$ionicScrollDelegate.$getByHandle('myScrollTop').scrollTop();
 		$timeout(function(){
 			txtSearch.focus();
 		},200); 
 	};
+
+
+
 	angular.element(document).ready(function(){
 		var initialSearchBox=function(){
 			var doc=document,
@@ -152,4 +158,4 @@ app.controller('homeCtrl',
 		}*/
 	});
 	console.log(333);
-}); 
+});  

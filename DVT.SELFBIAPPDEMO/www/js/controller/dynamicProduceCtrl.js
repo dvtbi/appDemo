@@ -36,6 +36,7 @@ app.controller('dynamicProduceCtrl',
     $scope.indicatorUnit=$stateParams.unit;
     $scope.isDay=false;
     $scope.isMonth=false;
+    // 查询按钮是否可用，true：不可用，false：可用
     $scope.isDisabled=true;
 
     // 获取动态纬度信息
@@ -60,11 +61,14 @@ app.controller('dynamicProduceCtrl',
       $scope.isMonth=false;
     })
     .finally(function(){
-      if ($scope.isDay) {
-        $scope.queryDate=dateFormat(new Date(),'yyyy-MM-dd');
+      var nowOffset=new Date();
+      if ($scope.isDay) { 
+        nowOffset.setDate(nowOffset.getDate()-1);
+        $scope.queryDate=dateFormat(nowOffset,'yyyy-MM-dd');
       }
       if ($scope.isMonth) {
-        $scope.queryDate=dateFormat(new Date(),'yyyy-MM');
+        nowOffset.setMonth(nowOffset.getMonth()-1);
+        $scope.queryDate=dateFormat(nowOffset,'yyyy-MM');
       }
       $ionicLoading.hide();
     });
@@ -105,6 +109,33 @@ app.controller('dynamicProduceCtrl',
     $scope.indicatorId=$stateParams.id;
     //$scope.queryPowerplant='请您选择一个电厂';
     $scope.queryOrganization='请您选择组织';
+    $scope.orgLevel={trueValue:'电厂',falseValue:'分公司',checked:true,orgArray:[]};
+    $scope.orgCallback=function(){ 
+        var levelIndex=0,rs= $scope.orgLevel.orgArray;
+        if (rs && rs.length>0) { 
+          if ($scope.orgLevel.checked) {
+              if (rs.length==3) {
+                levelIndex=2;
+                $scope.queryOrganization=rs[levelIndex].text;
+                $scope.orgType=rs[levelIndex].OriginzationCategoryCode;
+                $scope.orgId=rs[levelIndex].value;
+                $scope.orgName=rs[levelIndex].text; 
+                $scope.isDisabled=false;
+              }else{
+                $scope.queryOrganization="请您选择组织";
+                $scope.isDisabled=true;
+              } 
+          }else{
+              levelIndex=1;
+              $scope.queryOrganization=rs[levelIndex].text;
+              $scope.orgType=rs[levelIndex].OriginzationCategoryCode;
+              $scope.orgId=rs[levelIndex].value;
+              $scope.orgName=rs[levelIndex].text; 
+              $scope.isDisabled=false; 
+          }
+        }  
+      return $scope.orgLevel.checked?$scope.orgLevel.trueValue:$scope.orgLevel.falseValue;
+    };
 
     $scope.query=function(){ 
       $ionicViewSwitcher.nextDirection('forward');
@@ -118,6 +149,7 @@ app.controller('dynamicProduceCtrl',
         dateType:$scope.dateType,
         unit:$scope.indicatorUnit 
     })};
+
    /* $http({
       method:'get',
       url:'http://dwt2.hpi.com.cn/api/indicator/getOrganizationtest',
@@ -142,7 +174,28 @@ app.controller('dynamicProduceCtrl',
     .error(function(){
       //
     });*/
-
+    $scope.switchObject={
+      toggle:true,
+      outterClass:'open1',
+      innerClass:'open2',
+      watch:function(){  
+          $scope.orgLevel.checked=true;
+        if ($scope.switchObject.toggle) {
+          $scope.switchObject.outterClass='close1';
+          $scope.switchObject.innerClass='close2';
+          $scope.switchObject.toggle=false;
+          //
+          $scope.orgLevel.checked=false;
+        }else{
+          $scope.switchObject.outterClass='open1';
+          $scope.switchObject.innerClass='open2';
+          $scope.switchObject.toggle=true;
+          //
+           $scope.orgLevel.checked=true;
+        }
+        $scope.orgCallback();
+        console.log($scope.switchObject.outterClass)
+    }}; 
 
     //$scope.queryDateStart=$stateParams.start ||dateFormat(new Date());
     //$scope.queryDateEnd=$stateParams.end ||dateFormat(new Date());
@@ -204,15 +257,26 @@ app.controller('dynamicProduceCtrl',
 
           linkQueryOrganization.addEventListener('tap',function(event){
               event.stopPropagation();
-              var picker=new $.PopPicker({layer:3 });
+              var options={layer:3 },
+                  level=3,
+                  levelIndex; 
+              // true:控件显示三级，false:控件显示二级
+              if ($scope.orgLevel.checked)  level=3;
+              else  level=2; 
+              options.layer=level;
+              levelIndex=level-1;
+
+              var picker=new $.PopPicker(options);
               picker.setData($scope.organizations);
               picker.show(function(rs){   
-                    $scope.$apply(function(){
-                      $scope.queryOrganization=rs[2].text;
-                      $scope.orgType=rs[2].OriginzationCategoryCode;
-                      $scope.orgId=rs[2].value;
-                      $scope.orgName=rs[2].text;
+                    $scope.$apply(function(){ 
+                      $scope.queryOrganization=rs[levelIndex].text;
+                      $scope.orgType=rs[levelIndex].OriginzationCategoryCode;
+                      $scope.orgId=rs[levelIndex].value;
+                      $scope.orgName=rs[levelIndex].text;
                       $scope.isDisabled=false;
+                      $scope.orgLevel.orgArray=rs;
+                      console.log( $scope.orgLevel);
                     }); 
                     picker.dispose();   
               });

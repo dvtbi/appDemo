@@ -1,4 +1,37 @@
 <ion-view cache-view="false"  >
+<style>
+	#div1{
+        width: 60px;
+        height: 35px;
+        border-radius: 30px;
+        position: relative;  
+    }
+    #div2{
+        width: 28px;
+        height: 30px;
+        border-radius: 48px;
+        position: absolute;
+        background: white;
+        box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+    }
+    .open1{
+        background: rgba(0,184,0,0.8);
+    }
+    .open2{
+        top: 2px;
+        right: 1px;
+    }
+    .close1{
+        background: rgba(255,255,255,0.4);
+        border:3px solid rgba(0,0,0,0.15);
+        border-left: transparent;
+    }
+    .close2{
+        left: 3px;
+        top: -1px;
+        border:2px solid rgba(0,0,0,0.1);
+    }
+</style>
 	<ion-header-bar class="bar-stable"  style="background-color:#e6e6e6">
 	 	<button class="button"  ng-click="goBack()" nav-direction="back"><i class="icon ion-reply"></i></button> 
     	<h1 class="title" style="text-align:center">指标查询</h1>
@@ -13,8 +46,7 @@
 				   <!-- <input type="text" placeholder="Select The Start Date" ng-click="openDatePickerMonth($event)" ng-model="queryMonth" ng-readonly >-->
 				</label> 
 		 		<br ng-if="isDay">
-				<label ng-show="isDay" class="item item-input item-select" id="linkQueryDate" >
-					
+				<label ng-show="isDay" class="item item-input item-select" id="linkQueryDate" > 
 				     <span class="input-label">日期</span>
 				      <a class="city-bx_r"  data-default="no"> {{queryDate}}</a>
 				    <!--  <input type="text" placeholder="Select The Start Date" ng-click="openDatePickerDay($event)" ng-model="queryDay" >-->
@@ -29,23 +61,99 @@
 				    <select ng-options="item.OrganizationName for item in organizations" ng-model="selectedObject"  ng-change="organizationChange(selectedObject)">
 				    </select>
 				</label> -->
-	<br>
- <label class="item item-input item-stacked-label"  >
-    <span class="input-label" style="">电厂</span>
-   <a class="city-bx_r  item-select" style="display:block;padding-top:25px;padding-bottom:15px" id="linkQueryOrganization"> {{queryOrganization}}</a>
-  </label>
+				<br>
+				<div style="border-style:solid;border-color:#ddd;border-width:1px;height: 50px;border-bottom:0px">
+					<div style="float:left;padding-top:16px;padding-left:16px;color:#444">{{orgLevel.checked?orgCallback():orgCallback()}}</div> 
+		 			<div id="div1" style="float:right;margin-right:16px;margin-top:7px" class="{{switchObject.outterClass}}" ng-click="switchObject.watch()">
+	        			<div id="div2" class="{{switchObject.innerClass}}"></div>
+	    		    </div> 
+				</div> 
 
-				<!--<br>
-				<label class="item item-input item-select" id="linkQueryOrganization" >
-				    <div class="input-label">
-				      电厂
-				    </div>
-				    <a class="city-bx_r"> {{queryOrganization}}</a>
-				    <select ng-options="item.OrganizationName for item in organizations" ng-model="selectedObject"  ng-change="organizationChange(selectedObject)">
-				    </select>
-				</label>-->
-				
-			</div>
+
+			
+				<!--<ion-toggle ng-model="orgLevel.checked" toggle-class="toggle-dark" style="padding-left:16px; border-bottom:0px;" >{{orgLevel.checked?orgCallback():orgCallback()}}</ion-toggle>
+				<br>-->
+			
+				<label class="item item-input item-stacked-label" style="border-top:0px;padding-top:0px"  >
+				    <!--<span class="input-label" style="">电厂</span>--> 
+				   <a class="city-bx_r  item-select" style="display:block;padding-top:10px;padding-bottom:15px" id="linkQueryOrganization"> {{queryOrganization}}</a> 
+				</label>
+			</div>    
+		
+	<!--<div id="example-toggle" class="ionic-body active-preview">
+    <div class="bar bar-header">
+      <div class="h1 title">Toggle</div>
+    </div>
+    <div class="content has-header">
+
+      <ul class="list">
+        <li class="item item-toggle">
+           HTML5
+           <label class="toggle toggle-positive">
+             <input type="checkbox" checked="">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+        <li class="item item-toggle">
+           CSS3
+           <label class="toggle toggle-calm">
+             <input type="checkbox" checked="">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+        <li class="item item-toggle">
+           Flashplayer
+           <label class="toggle toggle-balanced">
+             <input type="checkbox">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+        <li class="item item-toggle">
+           Java Applets
+           <label class="toggle toggle-energized">
+             <input type="checkbox">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+        <li class="item item-toggle">
+           JavaScript
+           <label class="toggle toggle-assertive">
+             <input type="checkbox" checked="">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+        <li class="item item-toggle">
+           Silverlight
+           <label class="toggle toggle-royal">
+             <input type="checkbox">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+        <li class="item item-toggle">
+           Web Components
+           <label class="toggle toggle-dark">
+             <input type="checkbox" checked="">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+      </ul>
+
+    </div>
+  </div>-->
 
 	 		<button class="button button-full button-positive" ng-disabled="isDisabled" ng-click="query()">查询</button>
 	 </ion-content>
