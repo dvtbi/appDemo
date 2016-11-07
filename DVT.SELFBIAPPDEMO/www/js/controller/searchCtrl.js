@@ -1,4 +1,4 @@
-app.controller('searchCtrl',function($scope,$state,$stateParams,$http){
+app.controller('searchCtrl',function($scope,$state,$stateParams,$http,$ionicViewSwitcher){
 	$scope.IndicatorName=$stateParams.query?$stateParams.query:'';
 	(function(){
 		var storage=window.localStorage;
@@ -23,6 +23,7 @@ app.controller('searchCtrl',function($scope,$state,$stateParams,$http){
 		}   
 	})();  
 	$scope.goback=function(event){
+		$ionicViewSwitcher.nextDirection('back');
 		$state.go('home',{query:$scope.IndicatorName});
 	};
 	$scope.goProduce=function(i,n){

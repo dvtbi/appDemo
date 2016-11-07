@@ -48,7 +48,7 @@ app.controller('homeCtrl',
 
 		var keycode=window.event?event.keyCode:event.which;
 		if (keycode==13) {
-			$state.go('search',{query:$scope.IndicatorName});
+			//$state.go('search',{query:$scope.IndicatorName});
 		}
 
 	};
