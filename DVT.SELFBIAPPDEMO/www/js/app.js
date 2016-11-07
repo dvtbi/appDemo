@@ -7,12 +7,12 @@ var app=angular.module('selfbiappdemo', ['ionic']);
  
 // route config
 app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
-  $urlRouterProvider.otherwise('/home/');
+  $urlRouterProvider.otherwise('/home');
 
   $stateProvider
   .state('home',{
     cache:false,
-    url:'/home/:query',
+    url:'/home',
     templateUrl:'template/home.html',
     controller:'homeCtrl'
   })

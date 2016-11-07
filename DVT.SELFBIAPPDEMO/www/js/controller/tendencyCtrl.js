@@ -1,7 +1,11 @@
-app.controller('tendencyCtrl', function($scope, $state, $stateParams, $http) {
+app.controller('tendencyCtrl', function($scope, $state, $stateParams, $http,$ionicLoading) {
 
 
-
+    $ionicLoading.show({
+        content:'Loading',
+        animation:'fade-in',
+        showBackDrop:true
+    });
 
     $http({
             method: 'get',
@@ -101,6 +105,9 @@ app.controller('tendencyCtrl', function($scope, $state, $stateParams, $http) {
         })
         .error(function() {
 
+        })
+        .finally(function(){
+            $ionicLoading.hide();
         });
 
     var tendencyData;

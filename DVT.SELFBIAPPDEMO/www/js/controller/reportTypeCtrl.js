@@ -1,16 +1,15 @@
-app.controller('reportTypeCtrl',function($scope,$state,$stateParams,$http,$window,$timeout){
+app.controller('reportTypeCtrl',function($scope,$state,$stateParams,$http,$window,$timeout,$ionicLoading){
+	$ionicLoading.show({
+		content:'loading',
+		showBackDrop:true,
+		animation:'fade-in'
+	});
 	$scope.indicatorName=$stateParams.query?$stateParams.query:'';
 	$scope.patternName=$stateParams.patternName?$stateParams.patternName:''; 
 	$scope.goBack=function(){
 		$window.history.go(-1);
 	};
-	$scope.doRefresh=function(){
-		/*$timeout(function(){
-			 // Stop the ion-refresher from spinning
-       		$scope.$broadcast('scroll.refreshComplete');
-		},2000);*/
-		requestHttp(1);
-	}; 
+
 	var requestHttp=function(refresh){
 	 	$http({
 	      method:'get',
@@ -29,8 +28,19 @@ app.controller('reportTypeCtrl',function($scope,$state,$stateParams,$http,$windo
 	    .finally(function(){ 
 	    	if (refresh) {
 	    		$scope.$broadcast('scroll.refreshComplete');
+	    	}else{
+	    		$ionicLoading.hide();
 	    	} 
 	    });  
 	}; 
-	requestHttp();
+
+	$scope.doRefresh=function(){
+		/*$timeout(function(){
+			 // Stop the ion-refresher from spinning
+       		$scope.$broadcast('scroll.refreshComplete');
+		},2000);*/
+		requestHttp(1);
+	}; 
+	
+	requestHttp(0);
 });

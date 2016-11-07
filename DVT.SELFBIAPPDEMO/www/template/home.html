@@ -7,12 +7,12 @@
   </ion-header-bar>
   <!--app header bar end-->
   <!--app content start #41ab6b-->
-  <ion-content  id="divContent" style="background:#eeeeee;">  
+  <ion-content ng-controller="homeCtrl" id="divContent" style="background:#eeeeee;">  
     <!--search start-->
     <div class="list list-inset" >
       <label class="item item-input" id="lblSearch" style="background:#eeeeee">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" id="search" placeholder="Search" ng-keyup="search($event)" ng-focus="searchFocus()" ng-model="IndicatorName" ng-blur="searchBlur()">
+        <input type="text" id="search" placeholder="您输入一下发电量试一试" ng-keyup="search($event)" ng-focus="searchFocus()" ng-model="IndicatorName" ng-blur="searchBlur()">
       </label>
     </div>
     <!--search end--> 
@@ -37,7 +37,7 @@
                       width:{{queryListWidth}};
                       left:{{queryListLeft}};
                       top:{{queryListTop}}; height:auto !important;">
-         <li class="item" ng-click="goProduce('{{-1}}','{{IndicatorName}}',$event)"><strong>{{ IndicatorName}}</strong></li>
+         <li class="item" ng-click="openFile('{{-1}}','{{IndicatorName}}',$event)"><strong>{{ IndicatorName}}</strong></li>
     </ul>
    <!-- <ul class="list query-list" ng-show="filterItems.length==0 && IndicatorName!=undefined && IndicatorName!='' && IsSearchFocus" style="width:{{queryListWidth}} ;
                       left:{{queryListLeft}};

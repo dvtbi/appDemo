@@ -1,6 +1,10 @@
 app.controller('dynamicProduceCtrl', 
-  function ($scope,$http,$state,$stateParams,$ionicViewSwitcher,$window) {
-
+  function ($scope,$http,$state,$stateParams,$ionicViewSwitcher,$window,$ionicLoading) {
+    $ionicLoading.show({
+        content:'Loading',
+        animation:'fade-in',
+        showBackDrop:true
+    });
     // 根据Date格式化字符串
     var dateFormat=function(o,t){
       var f=function(i,isDay){
@@ -62,6 +66,7 @@ app.controller('dynamicProduceCtrl',
       if ($scope.isMonth) {
         $scope.queryDate=dateFormat(new Date(),'yyyy-MM');
       }
+      $ionicLoading.hide();
     });
 
     (function(){
@@ -199,7 +204,7 @@ app.controller('dynamicProduceCtrl',
 
           linkQueryOrganization.addEventListener('tap',function(event){
               event.stopPropagation();
-              var picker=new $.PopPicker({layer:3});
+              var picker=new $.PopPicker({layer:3 });
               picker.setData($scope.organizations);
               picker.show(function(rs){   
                     $scope.$apply(function(){

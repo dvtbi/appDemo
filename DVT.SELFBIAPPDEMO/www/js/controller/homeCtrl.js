@@ -2,7 +2,7 @@ app.controller('homeCtrl',
 	function($scope,$state,$stateParams,$http,$ionicViewSwitcher,$timeout){
 	// 搜索框是否获取焦点（true），用于判断搜索box隐藏与显示
 	$scope.IsSearchFocus=false;
-	$scope.IndicatorName=$stateParams.query?$stateParams.query:'';
+	//$scope.IndicatorName=$stateParams.query?$stateParams.query:'';
 
 	(function(){
 		var storage=window.localStorage;
@@ -39,7 +39,7 @@ app.controller('homeCtrl',
 	// 测试条目
 	//$scope.items=[{IndicatorId:'p111',IndicatorName:'发电量测试'}];
 
-	$scope.search=function(event){  
+	$scope.search=function(event){   
 		if ($scope.IndicatorName!=undefined && $scope.IndicatorName!=''){
 			$scope.IsShowQueryList=true; 
 		}else{
@@ -52,33 +52,16 @@ app.controller('homeCtrl',
 		}
 
 	};
-	$scope.goProduce=function(i,n,e){ 
-		if (i==0) {
-			/*$ionicPopup.alert({ 
-			  title: '友情提示', // String. 弹窗的标题。
-			  subTitle: '功能暂未开放，请选择其他关键词', // String (可选)。弹窗的子标题。
-			  template: '', // String (可选)。放在弹窗body内的html模板。
-			  templateUrl: '', // String (可选)。 放在弹窗body内的html模板的URL。
-			  okText: '确定', // String (默认: 'OK')。OK按钮的文字。
-			  okType: 'button-positive', // String (默认: 'button-positive')。OK按钮的类型。
-			});*/
-			//跳转到趋势图页面
-			$ionicViewSwitcher.nextDirection('forward');
-			$state.go('tendency',{query:n});
-		}else if (i==-1) {
-			//openPopover(e);  
+	$scope.openFile=function(i,n,e){ 
+		 if (i==-1) { 
 			$ionicViewSwitcher.nextDirection('forward'); 
 			$state.go('reportType',{query:$scope.IndicatorName,patternName:$scope.patternObject.getNewString()});
-		}
-		else{
-			$ionicViewSwitcher.nextDirection('forward');
-			$state.go('dynamicProduce',{id:i,name:n});
-			//$state.go('produce',{id:i,name:n});
-		}
+		} 
 	};
 
 	// redirect to Dynamic produce
 	$scope.goDynamicProduce=function(i,n,u){
+		console.log($scope.IndicatorName); 
 		if (i==0) {
 			/*$ionicPopup.alert({ 
 			  title: '友情提示', // String. 弹窗的标题。
@@ -123,6 +106,7 @@ app.controller('homeCtrl',
 		document.getElementById('lblSearch').classList.remove('item-input-focus');
 	}
 	$scope.sendQuery=function(event){ 
+		event.preventDefault();
 		var txtSearch=document.getElementById('search');
 		$scope.IndicatorName=event.target.innerText.replace(/^[\s]*|[\s]*$/,'');  
 		$timeout(function(){
@@ -167,4 +151,5 @@ app.controller('homeCtrl',
 			}
 		}*/
 	});
+	console.log(333);
 }); 
